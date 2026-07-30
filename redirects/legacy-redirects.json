@@ -1,0 +1,387 @@
+[
+  {
+    "source": "/listing/:slug",
+    "destination": "/de/firma/:slug",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing/:slug",
+    "destination": "/sr/firma/:slug",
+    "permanent": true
+  },
+  {
+    "source": "/listings",
+    "destination": "/de/firme",
+    "permanent": true
+  },
+  {
+    "source": "/listings/page/:n",
+    "destination": "/de/firme",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listings",
+    "destination": "/sr/firme",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listings/page/:n",
+    "destination": "/sr/firme",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/proizvodnja",
+    "destination": "/de/kategorija/proizvodnja",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/proizvodnja",
+    "destination": "/sr/kategorija/proizvodnja",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/srbija",
+    "destination": "/de/zemlja/rs",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/srbija",
+    "destination": "/sr/zemlja/rs",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/usluge",
+    "destination": "/de/kategorija/strucne-usluge",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/usluge",
+    "destination": "/sr/kategorija/strucne-usluge",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/austrija",
+    "destination": "/de/zemlja/at",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/austrija",
+    "destination": "/sr/zemlja/at",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/nekretnine",
+    "destination": "/de/kategorija/nekretnine",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/nekretnine",
+    "destination": "/sr/kategorija/nekretnine",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/trgovina",
+    "destination": "/de/kategorija/trgovina",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/trgovina",
+    "destination": "/sr/kategorija/trgovina",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/servisi",
+    "destination": "/de/kategorija/servisi",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/servisi",
+    "destination": "/sr/kategorija/servisi",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/ugostiteljstvo",
+    "destination": "/de/kategorija/ugostiteljstvo",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/ugostiteljstvo",
+    "destination": "/sr/kategorija/ugostiteljstvo",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/turizam",
+    "destination": "/de/kategorija/turizam",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/turizam",
+    "destination": "/sr/kategorija/turizam",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/gradjevinarstvo",
+    "destination": "/de/kategorija/gradjevinarstvo",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/gradjevinarstvo",
+    "destination": "/sr/kategorija/gradjevinarstvo",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/zdravlje",
+    "destination": "/de/kategorija/zdravlje",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/zdravlje",
+    "destination": "/sr/kategorija/zdravlje",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/nega",
+    "destination": "/de/kategorija/nega",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/nega",
+    "destination": "/sr/kategorija/nega",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/auto",
+    "destination": "/de/kategorija/auto",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/auto",
+    "destination": "/sr/kategorija/auto",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/kultura",
+    "destination": "/de/kategorija/kultura",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/kultura",
+    "destination": "/sr/kategorija/kultura",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/prevoz",
+    "destination": "/de/kategorija/prevoz",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/prevoz",
+    "destination": "/sr/kategorija/prevoz",
+    "permanent": true
+  },
+  {
+    "source": "/listing-category/:path*",
+    "destination": "/de/firme",
+    "permanent": true
+  },
+  {
+    "source": "/sr/listing-category/:path*",
+    "destination": "/sr/firme",
+    "permanent": true
+  },
+  {
+    "source": "/gradevinarstvo",
+    "destination": "/de/kategorija/gradjevinarstvo",
+    "permanent": true
+  },
+  {
+    "source": "/sr/gradevinarstvo",
+    "destination": "/sr/kategorija/gradjevinarstvo",
+    "permanent": true
+  },
+  {
+    "source": "/nekretnine-prodaja-i-izdavanje",
+    "destination": "/de/kategorija/nekretnine",
+    "permanent": true
+  },
+  {
+    "source": "/sr/nekretnine-prodaja-i-izdavanje",
+    "destination": "/sr/kategorija/nekretnine",
+    "permanent": true
+  },
+  {
+    "source": "/servisi-i-kucne-zanatske-usluge",
+    "destination": "/de/kategorija/servisi",
+    "permanent": true
+  },
+  {
+    "source": "/sr/servisi-i-kucne-zanatske-usluge",
+    "destination": "/sr/kategorija/servisi",
+    "permanent": true
+  },
+  {
+    "source": "/auto",
+    "destination": "/de/kategorija/auto",
+    "permanent": true
+  },
+  {
+    "source": "/sr/auto",
+    "destination": "/sr/kategorija/auto",
+    "permanent": true
+  },
+  {
+    "source": "/prevoz-putnika-i-robe",
+    "destination": "/de/kategorija/prevoz",
+    "permanent": true
+  },
+  {
+    "source": "/sr/prevoz-putnika-i-robe",
+    "destination": "/sr/kategorija/prevoz",
+    "permanent": true
+  },
+  {
+    "source": "/proizvodnja",
+    "destination": "/de/kategorija/proizvodnja",
+    "permanent": true
+  },
+  {
+    "source": "/sr/proizvodnja",
+    "destination": "/sr/kategorija/proizvodnja",
+    "permanent": true
+  },
+  {
+    "source": "/trgovina",
+    "destination": "/de/kategorija/trgovina",
+    "permanent": true
+  },
+  {
+    "source": "/sr/trgovina",
+    "destination": "/sr/kategorija/trgovina",
+    "permanent": true
+  },
+  {
+    "source": "/zdravlje-i-medicina",
+    "destination": "/de/kategorija/zdravlje",
+    "permanent": true
+  },
+  {
+    "source": "/sr/zdravlje-i-medicina",
+    "destination": "/sr/kategorija/zdravlje",
+    "permanent": true
+  },
+  {
+    "source": "/nega-lica-i-tela",
+    "destination": "/de/kategorija/nega",
+    "permanent": true
+  },
+  {
+    "source": "/sr/nega-lica-i-tela",
+    "destination": "/sr/kategorija/nega",
+    "permanent": true
+  },
+  {
+    "source": "/pravne-prevodilacke-knjigovodstvene-finansijske-it-usluge",
+    "destination": "/de/kategorija/strucne-usluge",
+    "permanent": true
+  },
+  {
+    "source": "/sr/pravne-prevodilacke-knjigovodstvene-finansijske-it-usluge",
+    "destination": "/sr/kategorija/strucne-usluge",
+    "permanent": true
+  },
+  {
+    "source": "/turizam",
+    "destination": "/de/kategorija/turizam",
+    "permanent": true
+  },
+  {
+    "source": "/sr/turizam",
+    "destination": "/sr/kategorija/turizam",
+    "permanent": true
+  },
+  {
+    "source": "/ugostiteljstvo",
+    "destination": "/de/kategorija/ugostiteljstvo",
+    "permanent": true
+  },
+  {
+    "source": "/sr/ugostiteljstvo",
+    "destination": "/sr/kategorija/ugostiteljstvo",
+    "permanent": true
+  },
+  {
+    "source": "/kultura",
+    "destination": "/de/kategorija/kultura",
+    "permanent": true
+  },
+  {
+    "source": "/sr/kultura",
+    "destination": "/sr/kategorija/kultura",
+    "permanent": true
+  },
+  {
+    "source": "/optimo-loco-card",
+    "destination": "/de/kartica",
+    "permanent": true
+  },
+  {
+    "source": "/sr/optimo-loco-card",
+    "destination": "/sr/kartica",
+    "permanent": true
+  },
+  {
+    "source": "/beispiel-seite",
+    "destination": "/de/o-nama",
+    "permanent": true
+  },
+  {
+    "source": "/sr/beispiel-seite",
+    "destination": "/sr/o-nama",
+    "permanent": true
+  },
+  {
+    "source": "/contact",
+    "destination": "/de/kontakt",
+    "permanent": true
+  },
+  {
+    "source": "/sr/contact",
+    "destination": "/sr/kontakt",
+    "permanent": true
+  },
+  {
+    "source": "/my-account",
+    "destination": "/de/dodaj-firmu",
+    "permanent": true
+  },
+  {
+    "source": "/sr/my-account",
+    "destination": "/sr/dodaj-firmu",
+    "permanent": true
+  },
+  {
+    "source": "/service-category/:path*",
+    "destination": "/de/firme",
+    "permanent": true
+  },
+  {
+    "source": "/sr/service-category/:path*",
+    "destination": "/sr/firme",
+    "permanent": true
+  },
+  {
+    "source": "/Region/:path*",
+    "destination": "/de/firme",
+    "permanent": true
+  },
+  {
+    "source": "/Aufhörfunktion/:path*",
+    "destination": "/de/firme",
+    "permanent": true
+  },
+  {
+    "source": "/author/:path*",
+    "destination": "/de/firme",
+    "permanent": true
+  }
+]

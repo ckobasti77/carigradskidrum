@@ -1,0 +1,241 @@
+{
+  "_meta": {
+    "reviewStatus": "TODO-REVIEW: machine-drafted German — native-speaker pass scheduled for M5"
+  },
+  "common": {
+    "siteName": "Carigradski Drum",
+    "tagline": "Für manche alles, für jeden etwas.",
+    "description": "B2B- und B2C-Plattform, die Kunden und Unternehmen aus Österreich, Serbien und dem Westbalkan verbindet — Handwerk, Dienstleistungen, Immobilien, Gesundheit, Transport, Produktion und vieles mehr.",
+    "nav": {
+      "home": "Startseite",
+      "directory": "Firmen",
+      "card": "Karte",
+      "about": "Über uns",
+      "contact": "Kontakt"
+    },
+    "cta": {
+      "addCompany": "Firma eintragen"
+    },
+    "actions": {
+      "search": "Suchen",
+      "showMore": "Mehr anzeigen",
+      "viewAll": "Alle anzeigen",
+      "send": "Senden",
+      "sending": "Wird gesendet…",
+      "backHome": "Zurück zur Startseite",
+      "learnMore": "Mehr erfahren",
+      "close": "Schließen",
+      "openMenu": "Menü öffnen",
+      "tryAgain": "Erneut versuchen"
+    },
+    "countries": {
+      "AT": "Österreich",
+      "RS": "Serbien",
+      "HR": "Kroatien",
+      "BA": "Bosnien und Herzegowina"
+    },
+    "days": ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
+    "footer": {
+      "navTitle": "Navigation",
+      "contactTitle": "Kontakt",
+      "partnerTitle": "Partner für Serbien",
+      "legalTitle": "Rechtliches",
+      "privacy": "Datenschutzerklärung",
+      "terms": "Nutzungsbedingungen",
+      "impressum": "Impressum",
+      "rights": "Alle Rechte vorbehalten."
+    },
+    "languageSwitcher": {
+      "label": "Sprachauswahl"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Finden Sie geprüfte Firmen zwischen Österreich und dem Balkan",
+      "subtitle": "Carigradski Drum verbindet die Diaspora und lokale Kunden mit Handwerkern, Dienstleistern und Unternehmen — von Wien bis Belgrad. Für manche alles, für jeden etwas.",
+      "searchPlaceholder": "Was brauchen Sie? z. B. „Installateur”, „Zahnarzt”, „Transport”…",
+      "searchLabel": "Firmensuche"
+    },
+    "categories": {
+      "title": "Kategorien",
+      "subtitle": "Finden Sie Firmen nach Branche",
+      "companiesSuffix": "Firmen"
+    },
+    "newest": {
+      "titleFeatured": "Empfohlene Firmen",
+      "titleFallback": "Neu auf der Plattform",
+      "subtitle": "Kürzlich hinzugefügte Firmen im Verzeichnis"
+    },
+    "howItWorks": {
+      "title": "So funktioniert es",
+      "steps": [
+        {
+          "title": "Firma finden",
+          "text": "Durchsuchen Sie das Verzeichnis nach Branche, Land oder Stadt — ohne Konto und kostenlos."
+        },
+        {
+          "title": "Kontakt aufnehmen",
+          "text": "Senden Sie eine Anfrage direkt vom Firmenprofil oder besuchen Sie die Website."
+        },
+        {
+          "title": "Karte nutzen",
+          "text": "Mit der Carigradski-Drum-Karte erhalten Sie Rabatte bei gekennzeichneten Partnern."
+        }
+      ]
+    },
+    "cardPromo": {
+      "title": "Carigradski-Drum-Karte",
+      "text": "Rabatte bei Partnerfirmen auf der Plattform — achten Sie auf die Rabatt-Kennzeichnung in den Profilen.",
+      "cta": "Mehr zur Karte"
+    },
+    "partners": {
+      "title": "Partner mit Rabatt",
+      "subtitle": "Firmen, bei denen die Carigradski-Drum-Karte einen Rabatt bringt"
+    },
+    "ctaBand": {
+      "title": "Sie haben eine Firma?",
+      "text": "Tragen Sie Ihre Firma ins Verzeichnis ein und erreichen Sie neue Kunden in Österreich, Serbien und der Region.",
+      "cta": "Firma eintragen"
+    }
+  },
+  "directory": {
+    "title": "Firmenverzeichnis",
+    "subtitle": "Durchsuchen Sie Firmen aus Österreich, Serbien und Kroatien",
+    "searchPlaceholder": "Suche nach Name, Branche, Stadt…",
+    "filters": {
+      "title": "Filter",
+      "category": "Kategorie",
+      "country": "Land",
+      "city": "Stadt",
+      "acceptsCard": "Akzeptiert die Carigradski-Drum-Karte",
+      "allCategories": "Alle Kategorien",
+      "allCountries": "Alle Länder",
+      "allCities": "Alle Städte",
+      "reset": "Filter zurücksetzen"
+    },
+    "sort": {
+      "label": "Sortierung",
+      "recommended": "Empfohlen",
+      "newest": "Neueste"
+    },
+    "resultsCount": "{count} Ergebnisse",
+    "empty": {
+      "title": "Keine Ergebnisse",
+      "text": "Versuchen Sie einen anderen Begriff oder entfernen Sie einen Filter."
+    }
+  },
+  "company": {
+    "sections": {
+      "overview": "Übersicht",
+      "offerings": "Produkte & Dienstleistungen",
+      "location": "Standort",
+      "hours": "Öffnungszeiten",
+      "gallery": "Galerie",
+      "similar": "Ähnliche Firmen"
+    },
+    "offeringType": {
+      "product": "Produkt",
+      "service": "Dienstleistung"
+    },
+    "website": "Website besuchen",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "getDirections": "Route anzeigen",
+    "discountBadge": "{percent}% mit der Carigradski-Drum-Karte",
+    "acceptsCardNote": "Diese Firma gewährt Rabatt mit der Carigradski-Drum-Karte.",
+    "claim": {
+      "title": "Ist das Ihre Firma?",
+      "text": "Alle Informationen stammen aus öffentlich zugänglichen Quellen. Wenn Sie Inhaber oder bevollmächtigter Vertreter sind, übernehmen Sie Ihr Profil und vervollständigen Sie es.",
+      "button": "Profil übernehmen"
+    },
+    "addedByNote": "Profil vom Carigradski-Drum-Team auf Basis öffentlich zugänglicher Daten erstellt.",
+    "hoursClosed": "Geschlossen",
+    "lockedNote": "Vollständige Informationen sind auf Partnerprofilen verfügbar.",
+    "inquiry": {
+      "title": "Anfrage senden",
+      "subtitle": "Ihre Nachricht geht direkt an die Firma.",
+      "name": "Ihr Name",
+      "email": "Ihre E-Mail",
+      "phone": "Telefon (optional)",
+      "message": "Nachricht",
+      "submit": "Anfrage senden",
+      "success": "Ihre Anfrage wurde gesendet. Die Firma meldet sich bei Ihnen.",
+      "errorRateLimit": "Derzeit können keine Anfragen gesendet werden. Bitte versuchen Sie es später erneut.",
+      "errorGeneric": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+      "privacyNote": "Mit dem Absenden akzeptieren Sie unsere Datenschutzerklärung."
+    }
+  },
+  "category": {
+    "companiesIn": "Firmen in der Kategorie",
+    "browseAll": "Zum gesamten Verzeichnis",
+    "emptyTitle": "Noch keine Firmen in dieser Kategorie",
+    "emptyText": "Tragen Sie Ihre Firma ein und seien Sie die erste."
+  },
+  "country": {
+    "companiesIn": "Firmen — {country}",
+    "browseAll": "Zum gesamten Verzeichnis"
+  },
+  "card": {
+    "title": "Carigradski-Drum-Karte",
+    "lead": "Die Treuekarte mit 5% bis 20% Rabatt bei Partnerfirmen auf der Plattform.",
+    "howTitle": "Wie funktioniert es?",
+    "howSteps": [
+      "Holen Sie sich die Carigradski-Drum-Karte — kontaktieren Sie uns über das Formular oder per E-Mail.",
+      "Suchen Sie Firmen mit Rabatt-Kennzeichnung im Verzeichnis.",
+      "Zeigen Sie die Karte beim Bezahlen vor und erhalten Sie den Rabatt."
+    ],
+    "partnersTitle": "Partnerfirmen mit Rabatt",
+    "partnersEmpty": "Die Partnerliste wird aktualisiert.",
+    "contactCta": "Karte anfragen"
+  },
+  "about": {
+    "title": "Über uns",
+    "lead": "Carigradski Drum ist eine Plattform, die Firmen und Kunden entlang der historischen Straße verbindet, die seit Jahrhunderten Wien und Belgrad verbindet."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "lead": "Schreiben Sie uns — wir antworten so schnell wie möglich.",
+    "form": {
+      "name": "Ihr Name",
+      "email": "Ihre E-Mail",
+      "message": "Nachricht",
+      "submit": "Nachricht senden",
+      "success": "Ihre Nachricht wurde gesendet. Danke!",
+      "errorGeneric": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    }
+  },
+  "addCompany": {
+    "title": "Tragen Sie Ihre Firma ein",
+    "lead": "Präsentieren Sie Ihre Firma tausenden potenziellen Kunden in Österreich, Serbien und der Region.",
+    "benefits": [
+      {
+        "title": "Sichtbarkeit auf zwei Märkten",
+        "text": "Ein Profil auf Serbisch und Deutsch, sichtbar für Kunden in Österreich und am Balkan."
+      },
+      {
+        "title": "Direkte Anfragen",
+        "text": "Kunden schreiben Ihnen direkt vom Profil — ohne Vermittler."
+      },
+      {
+        "title": "Partnerschaft mit der Karte",
+        "text": "Als Rabatt-Partner erhalten Sie eine besondere Kennzeichnung und einen Platz auf der Kartenseite."
+      }
+    ],
+    "selfServiceSoon": "Das selbstständige Eintragen und Bearbeiten von Profilen kommt in Kürze. Bis dahin kontaktieren Sie uns — wir tragen Ihre Firma für Sie ein.",
+    "contactPrompt": "Erreichen Sie uns unter"
+  },
+  "legal": {
+    "privacyTitle": "Datenschutzerklärung",
+    "termsTitle": "Nutzungsbedingungen",
+    "impressumTitle": "Impressum",
+    "draftNote": "Entwurfsfassung — der endgültige Text wird von einem Rechtsberater erstellt."
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Die gesuchte Seite existiert nicht oder wurde verschoben."
+  },
+  "error": {
+    "title": "Etwas ist schiefgelaufen",
+    "text": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "common": {
+    "siteName": "Carigradski Drum",
+    "tagline": "Za nekoga sve, za svakog po nešto.",
+    "description": "B2B i B2C platforma koja povezuje klijente i firme iz Austrije, Srbije i Zapadnog Balkana — zanati, servisi, nekretnine, zdravlje, prevoz, proizvodnja i još mnogo toga.",
+    "nav": {
+      "home": "Početna",
+      "directory": "Firme",
+      "card": "Kartica",
+      "about": "O nama",
+      "contact": "Kontakt"
+    },
+    "cta": {
+      "addCompany": "Dodaj svoju firmu"
+    },
+    "actions": {
+      "search": "Pretraži",
+      "showMore": "Prikaži još",
+      "viewAll": "Prikaži sve",
+      "send": "Pošalji",
+      "sending": "Slanje…",
+      "backHome": "Nazad na početnu",
+      "learnMore": "Saznaj više",
+      "close": "Zatvori",
+      "openMenu": "Otvori meni",
+      "tryAgain": "Pokušaj ponovo"
+    },
+    "countries": {
+      "AT": "Austrija",
+      "RS": "Srbija",
+      "HR": "Hrvatska",
+      "BA": "Bosna i Hercegovina"
+    },
+    "days": ["Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"],
+    "footer": {
+      "navTitle": "Navigacija",
+      "contactTitle": "Kontakt",
+      "partnerTitle": "Saradnik za Srbiju",
+      "legalTitle": "Pravno",
+      "privacy": "Politika privatnosti",
+      "terms": "Uslovi korišćenja",
+      "impressum": "Impressum",
+      "rights": "Sva prava zadržana."
+    },
+    "languageSwitcher": {
+      "label": "Izbor jezika"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Pronađite proverene firme između Austrije i Balkana",
+      "subtitle": "Carigradski Drum povezuje dijasporu i domaće klijente sa zanatlijama, servisima i firmama — od Beča do Beograda. Za nekoga sve, za svakog po nešto.",
+      "searchPlaceholder": "Šta vam treba? npr. „instalater”, „zubar”, „prevoz”…",
+      "searchLabel": "Pretraga firmi"
+    },
+    "categories": {
+      "title": "Kategorije",
+      "subtitle": "Pronađite firmu po delatnosti",
+      "companiesSuffix": "firmi"
+    },
+    "newest": {
+      "titleFeatured": "Istaknute firme",
+      "titleFallback": "Novo na platformi",
+      "subtitle": "Firme koje su nedavno dodate u imenik"
+    },
+    "howItWorks": {
+      "title": "Kako funkcioniše",
+      "steps": [
+        {
+          "title": "Pronađite firmu",
+          "text": "Pretražite imenik po delatnosti, državi ili gradu — bez naloga i bez naknade."
+        },
+        {
+          "title": "Stupite u kontakt",
+          "text": "Pošaljite upit direktno sa profila firme ili posetite njihov sajt."
+        },
+        {
+          "title": "Iskoristite karticu",
+          "text": "Sa Carigradski Drum karticom ostvarujete popuste kod označenih partnera."
+        }
+      ]
+    },
+    "cardPromo": {
+      "title": "Carigradski Drum kartica",
+      "text": "Popusti kod partnerskih firmi na platformi — potražite oznaku popusta na profilima.",
+      "cta": "Više o kartici"
+    },
+    "partners": {
+      "title": "Partneri sa popustom",
+      "subtitle": "Firme kod kojih Carigradski Drum kartica donosi popust"
+    },
+    "ctaBand": {
+      "title": "Imate firmu?",
+      "text": "Dodajte svoju firmu u imenik i dođite do novih klijenata u Austriji, Srbiji i regionu.",
+      "cta": "Dodaj svoju firmu"
+    }
+  },
+  "directory": {
+    "title": "Imenik firmi",
+    "subtitle": "Pretražite firme iz Austrije, Srbije i Hrvatske",
+    "searchPlaceholder": "Pretraga po nazivu, delatnosti, gradu…",
+    "filters": {
+      "title": "Filteri",
+      "category": "Kategorija",
+      "country": "Država",
+      "city": "Grad",
+      "acceptsCard": "Prihvata Carigradski Drum karticu",
+      "allCategories": "Sve kategorije",
+      "allCountries": "Sve države",
+      "allCities": "Svi gradovi",
+      "reset": "Poništi filtere"
+    },
+    "sort": {
+      "label": "Sortiranje",
+      "recommended": "Preporučeno",
+      "newest": "Najnovije"
+    },
+    "resultsCount": "{count} rezultata",
+    "empty": {
+      "title": "Nema rezultata",
+      "text": "Pokušajte sa drugim pojmom ili uklonite neki od filtera."
+    }
+  },
+  "company": {
+    "sections": {
+      "overview": "Pregled",
+      "offerings": "Proizvodi i usluge",
+      "location": "Lokacija",
+      "hours": "Radno vreme",
+      "gallery": "Galerija",
+      "similar": "Slične firme"
+    },
+    "offeringType": {
+      "product": "Proizvod",
+      "service": "Usluga"
+    },
+    "website": "Poseti sajt",
+    "phone": "Telefon",
+    "email": "Email",
+    "getDirections": "Prikaži putanju",
+    "discountBadge": "{percent}% sa Carigradski Drum karticom",
+    "acceptsCardNote": "Ova firma odobrava popust uz Carigradski Drum karticu.",
+    "claim": {
+      "title": "Da li je ovo vaša firma?",
+      "text": "Sve informacije potiču iz javno dostupnih izvora. Ako ste vlasnik ili ovlašćeni predstavnik, preuzmite svoj profil i dopunite ga.",
+      "button": "Preuzmi profil"
+    },
+    "addedByNote": "Profil dodao Carigradski Drum tim na osnovu javno dostupnih podataka.",
+    "hoursClosed": "Zatvoreno",
+    "lockedNote": "Kompletne informacije dostupne su na profilima partnera.",
+    "inquiry": {
+      "title": "Pošaljite upit",
+      "subtitle": "Poruka stiže direktno firmi.",
+      "name": "Vaše ime",
+      "email": "Vaš email",
+      "phone": "Telefon (opciono)",
+      "message": "Poruka",
+      "submit": "Pošalji upit",
+      "success": "Upit je poslat. Firma će vam se javiti na ostavljeni kontakt.",
+      "errorRateLimit": "Trenutno nije moguće poslati upit. Pokušajte ponovo kasnije.",
+      "errorGeneric": "Došlo je do greške. Pokušajte ponovo.",
+      "privacyNote": "Slanjem upita prihvatate našu politiku privatnosti."
+    }
+  },
+  "category": {
+    "companiesIn": "Firme u kategoriji",
+    "browseAll": "Pogledaj ceo imenik",
+    "emptyTitle": "Još nema firmi u ovoj kategoriji",
+    "emptyText": "Dodajte svoju firmu i budite prvi."
+  },
+  "country": {
+    "companiesIn": "Firme — {country}",
+    "browseAll": "Pogledaj ceo imenik"
+  },
+  "card": {
+    "title": "Carigradski Drum kartica",
+    "lead": "Kartica lojalnosti koja donosi popuste od 5% do 20% kod partnerskih firmi na platformi.",
+    "howTitle": "Kako funkcioniše?",
+    "howSteps": [
+      "Nabavite Carigradski Drum karticu — javite nam se putem kontakt forme ili emaila.",
+      "Potražite firme sa oznakom popusta u imeniku.",
+      "Pokažite karticu prilikom plaćanja i ostvarite popust."
+    ],
+    "partnersTitle": "Partnerske firme sa popustom",
+    "partnersEmpty": "Lista partnera se ažurira.",
+    "contactCta": "Zatražite karticu"
+  },
+  "about": {
+    "title": "O nama",
+    "lead": "Carigradski Drum je platforma koja spaja firme i klijente duž istorijskog puta koji vekovima povezuje Beč i Beograd."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "lead": "Pišite nam — odgovaramo u najkraćem roku.",
+    "form": {
+      "name": "Vaše ime",
+      "email": "Vaš email",
+      "message": "Poruka",
+      "submit": "Pošalji poruku",
+      "success": "Poruka je poslata. Hvala!",
+      "errorGeneric": "Došlo je do greške. Pokušajte ponovo."
+    }
+  },
+  "addCompany": {
+    "title": "Dodajte svoju firmu",
+    "lead": "Predstavite svoju firmu hiljadama potencijalnih klijenata u Austriji, Srbiji i regionu.",
+    "benefits": [
+      {
+        "title": "Vidljivost na dva tržišta",
+        "text": "Profil na srpskom i nemačkom jeziku, vidljiv klijentima u Austriji i na Balkanu."
+      },
+      {
+        "title": "Direktni upiti",
+        "text": "Klijenti vam pišu direktno sa profila — bez posrednika."
+      },
+      {
+        "title": "Partnerstvo uz karticu",
+        "text": "Kao partner sa popustom dobijate posebnu oznaku i mesto na stranici kartice."
+      }
+    ],
+    "selfServiceSoon": "Samostalno dodavanje i uređivanje profila uskoro stiže. Do tada nas kontaktirajte i dodaćemo vašu firmu za vas.",
+    "contactPrompt": "Javite nam se na"
+  },
+  "legal": {
+    "privacyTitle": "Politika privatnosti",
+    "termsTitle": "Uslovi korišćenja",
+    "impressumTitle": "Impressum",
+    "draftNote": "Radna verzija — konačan tekst priprema pravni savetnik."
+  },
+  "notFound": {
+    "title": "Stranica nije pronađena",
+    "text": "Stranica koju tražite ne postoji ili je premeštena."
+  },
+  "error": {
+    "title": "Nešto je pošlo naopako",
+    "text": "Došlo je do neočekivane greške. Pokušajte ponovo."
+  }
+}
