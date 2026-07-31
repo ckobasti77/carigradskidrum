@@ -31,8 +31,8 @@ export default async function OpenGraphImage({
           justifyContent: "center",
           alignItems: "flex-start",
           padding: 80,
-          backgroundColor: "#faf6ef",
-          color: "#3d332b",
+          backgroundColor: "#f5ead8",
+          color: "#201e1d",
           fontFamily: "sans-serif",
         }}
       >
@@ -49,18 +49,18 @@ export default async function OpenGraphImage({
               width: 64,
               height: 64,
               borderRadius: 14,
-              backgroundColor: "#b35a34",
+              backgroundColor: "#c67139",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#fff7ef",
+              color: "#f5ead8",
               fontSize: 34,
               fontWeight: 700,
             }}
           >
             CD
           </div>
-          <div style={{ display: "flex", fontSize: 30, color: "#8a7f74" }}>
+          <div style={{ display: "flex", fontSize: 30, color: "#645c50" }}>
             carigradskidrum.com
           </div>
         </div>
@@ -79,7 +79,7 @@ export default async function OpenGraphImage({
             display: "flex",
             marginTop: 18,
             fontSize: 34,
-            color: "#8a7f74",
+            color: "#645c50",
           }}
         >
           {tagline}
@@ -92,7 +92,7 @@ export default async function OpenGraphImage({
             height: 6,
             borderRadius: 3,
             backgroundImage:
-              "linear-gradient(90deg, #b35a34 0 14px, transparent 14px 28px)",
+              "linear-gradient(90deg, #c67139 0 14px, transparent 14px 28px)",
             backgroundSize: "28px 6px",
           }}
         />

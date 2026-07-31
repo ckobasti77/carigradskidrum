@@ -7,8 +7,11 @@ import {
   mediaKindValidator,
   offeringTypeValidator,
   openingHoursValidator,
+  paymentMethodValidator,
   planValidator,
   revisionPayloadValidator,
+  submissionPayloadValidator,
+  submissionStatusValidator,
   subscriptionStatusValidator,
   tierValidator,
 } from "./lib/validators";
@@ -132,7 +135,11 @@ export default defineSchema({
     height: v.number(),
     alt: v.optional(v.string()),
     order: v.number(),
-  }).index("by_company", ["companyId"]),
+  })
+    .index("by_company", ["companyId"])
+    // Lets the orphan-storage janitor (convex/crons.ts) answer "is this file
+    // still referenced?" with an index hit instead of a full media scan.
+    .index("by_storageId", ["storageId"]),
 
   discountOffers: defineTable({
     companyId: v.id("companies"),
@@ -210,4 +217,56 @@ export default defineSchema({
     eventId: v.string(),
     type: v.string(),
   }).index("by_eventId", ["eventId"]),
+
+  /**
+   * Anonymous "add my company" submissions (public wizard on /dodaj-firmu).
+   *
+   * Deliberately NOT rows in `companies` with status "pending": keeping them
+   * out means spam can never squat a slug, the by_status browse scan stays
+   * clean, and the person who filed the submission (who is not yet a user —
+   * Convex Auth lands in M2) has somewhere to live.
+   */
+  companySubmissions: defineTable({
+    status: submissionStatusValidator,
+    payload: submissionPayloadValidator,
+    submitterName: v.string(),
+    submitterEmail: v.string(),
+    submitterPhone: v.optional(v.string()),
+    submitterRole: v.optional(v.string()), // "vlasnik", "menadžer", …
+    locale: localeValidator,
+    companyId: v.optional(v.id("companies")), // set on approval
+    reviewedAt: v.optional(v.number()),
+    rejectReason: v.optional(v.string()),
+    adminNote: v.optional(v.string()),
+  })
+    .index("by_status", ["status"])
+    .index("by_email", ["submitterEmail"])
+    // Lets a company delete clear the dangling pointer without a table scan.
+    .index("by_company", ["companyId"]),
+
+  /**
+   * Incoming payments from companies to the platform (the yearly_365 /
+   * monthly_45 plans). BILLING_PROVIDER is "manual" in v1, so this is the
+   * revenue ledger the owner keeps by hand; Stripe webhooks write here in M4.
+   */
+  payments: defineTable({
+    companyId: v.id("companies"),
+    subscriptionId: v.optional(v.id("subscriptions")),
+    amountEur: v.number(),
+    method: paymentMethodValidator,
+    paidAt: v.number(),
+    invoiceNo: v.optional(v.string()),
+    note: v.optional(v.string()),
+  })
+    .index("by_company", ["companyId"])
+    .index("by_paidAt", ["paidAt"]),
+
+  /** Append-only trail of every admin mutation (evidencija). */
+  adminAuditLog: defineTable({
+    action: v.string(), // "submission.approve", "subscription.activate", …
+    entityTable: v.string(),
+    entityId: v.string(),
+    summary: v.string(),
+    actor: v.string(), // "admin" until M2 auth gives real identities
+  }).index("by_entity", ["entityTable", "entityId"]),
 });

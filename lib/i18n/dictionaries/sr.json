@@ -51,12 +51,24 @@
       "title": "Pronađite proverene firme između Austrije i Balkana",
       "subtitle": "Carigradski Drum povezuje dijasporu i domaće klijente sa zanatlijama, servisima i firmama — od Beča do Beograda. Za nekoga sve, za svakog po nešto.",
       "searchPlaceholder": "Šta vam treba? npr. „instalater”, „zubar”, „prevoz”…",
-      "searchLabel": "Pretraga firmi"
+      "searchLabel": "Pretraga firmi",
+      "imageAlt": "Majstor i klijent se rukuju posle završenog posla",
+      "trust": {
+        "companies": "{count} proverenih firmi",
+        "categories": "{count} delatnosti",
+        "regions": "Austrija · Srbija · Balkan"
+      }
     },
     "categories": {
       "title": "Kategorije",
       "subtitle": "Pronađite firmu po delatnosti",
-      "companiesSuffix": "firmi"
+      "companiesSuffix": "firmi",
+      "companies": {
+        "one": "firma",
+        "few": "firme",
+        "many": "firmi"
+      },
+      "viewAllTile": "Prikaži sve firme"
     },
     "newest": {
       "titleFeatured": "Istaknute firme",
@@ -83,7 +95,8 @@
     "cardPromo": {
       "title": "Carigradski Drum kartica",
       "text": "Popusti kod partnerskih firmi na platformi — potražite oznaku popusta na profilima.",
-      "cta": "Više o kartici"
+      "cta": "Više o kartici",
+      "mockupLabel": "Kartica popusta"
     },
     "partners": {
       "title": "Partneri sa popustom",
@@ -139,6 +152,7 @@
     "email": "Email",
     "getDirections": "Prikaži putanju",
     "discountBadge": "{percent}% sa Carigradski Drum karticom",
+    "discountBadgeShort": "−{percent}% sa karticom",
     "acceptsCardNote": "Ova firma odobrava popust uz Carigradski Drum karticu.",
     "claim": {
       "title": "Da li je ovo vaša firma?",
@@ -218,8 +232,135 @@
         "text": "Kao partner sa popustom dobijate posebnu oznaku i mesto na stranici kartice."
       }
     ],
-    "selfServiceSoon": "Samostalno dodavanje i uređivanje profila uskoro stiže. Do tada nas kontaktirajte i dodaćemo vašu firmu za vas.",
-    "contactPrompt": "Javite nam se na"
+    "helpTitle": "Radije biste da mi to odradimo?",
+    "helpText": "Ako vam je lakše, popunićemo prijavu umesto vas. Javite nam se i uzećemo podatke telefonom ili mejlom.",
+    "contactPrompt": "Javite nam se na",
+    "form": {
+      "title": "Prijava firme",
+      "lead": "Popunjavanje traje oko pet minuta. Prijavu proveravamo i objavljujemo u roku od dva radna dana.",
+      "stepLabel": "Korak {current} od {total}",
+      "progressLabel": "Napredak prijave",
+      "optionalStep": "Ovaj korak možete preskočiti.",
+      "optional": "opciono",
+      "next": "Dalje",
+      "back": "Nazad",
+      "skip": "Preskoči korak",
+      "submit": "Pošalji prijavu",
+      "submitting": "Šaljem prijavu…",
+      "uploading": "Otpremam slike…",
+      "steps": {
+        "basics": "Osnovno",
+        "location": "Lokacija",
+        "contact": "Kontakt",
+        "offer": "Ponuda",
+        "submitter": "Vaši podaci",
+        "review": "Pregled"
+      },
+      "basics": {
+        "title": "Osnovni podaci",
+        "description": "Kako se firma zove i čime se bavi.",
+        "name": "Naziv firme",
+        "namePlaceholder": "npr. Auto servis Marković",
+        "categories": "Delatnosti",
+        "categoriesHint": "Izaberite do {max} delatnosti koje najbolje opisuju vaš posao.",
+        "descriptionSr": "Opis na srpskom",
+        "descriptionSrHint": "Čime se bavite, za koga radite i po čemu ste drugačiji. Najmanje {min} karaktera.",
+        "descriptionDe": "Opis na nemačkom",
+        "descriptionDeHint": "Opciono. Ako ostane prazno, i nemačkim posetiocima prikazujemo srpski opis.",
+        "duplicateWarning": "Slična firma već postoji u direktorijumu:",
+        "duplicateHint": "Ako je to vaša firma, javite nam se umesto slanja nove prijave."
+      },
+      "location": {
+        "title": "Gde vas klijenti nalaze",
+        "description": "Adresa se prikazuje na profilu i na mapi.",
+        "country": "Država",
+        "city": "Grad",
+        "cityPlaceholder": "npr. Beč",
+        "address": "Adresa",
+        "addressPlaceholder": "Ulica i broj",
+        "zip": "Poštanski broj"
+      },
+      "contact": {
+        "title": "Kontakt i radno vreme",
+        "description": "Telefon, email i radno vreme prikazuju se posetiocima uz plaćeni paket. Podatke čuvamo odmah.",
+        "website": "Veb sajt",
+        "websitePlaceholder": "npr. mojafirma.at",
+        "phone": "Telefon",
+        "email": "Email firme",
+        "emailHint": "Na ovu adresu prosleđujemo upite klijenata.",
+        "hoursTitle": "Radno vreme",
+        "hoursHint": "Označite dane kada radite i unesite vreme.",
+        "openLabel": "Otvoreno",
+        "from": "Od",
+        "to": "Do"
+      },
+      "offer": {
+        "title": "Slike i ponuda",
+        "description": "Profil sa slikom dobija znatno više klikova.",
+        "logo": "Logo",
+        "cover": "Naslovna slika",
+        "gallery": "Galerija",
+        "galleryHint": "Do {max} fotografija.",
+        "imageHint": "JPG, PNG ili WebP, do {mb} MB.",
+        "chooseImage": "Izaberi sliku",
+        "chooseImages": "Dodaj fotografije",
+        "removeImage": "Ukloni sliku",
+        "offeringsTitle": "Proizvodi i usluge",
+        "offeringsHint": "Dodajte koliko god stavki želite.",
+        "addOffering": "Dodaj stavku",
+        "removeOffering": "Ukloni stavku",
+        "offeringType": "Vrsta",
+        "offeringProduct": "Proizvod",
+        "offeringService": "Usluga",
+        "offeringName": "Naziv",
+        "offeringDescription": "Kratak opis",
+        "discountTitle": "Popust za korisnike kartice",
+        "discountToggle": "Želim da budem partner sa popustom",
+        "discountPercent": "Popust (%)",
+        "discountTerms": "Uslovi popusta",
+        "discountNote": "Oznaka popusta na profilu aktivira se uz plaćeni paket. Prijavu evidentiramo odmah i javljamo vam se sa detaljima."
+      },
+      "submitter": {
+        "title": "Vaši podaci",
+        "description": "Da znamo s kim razgovaramo. Ovi podaci se ne objavljuju na profilu.",
+        "name": "Ime i prezime",
+        "email": "Vaš email",
+        "emailHint": "Na ovu adresu šaljemo potvrdu i odgovor.",
+        "phone": "Telefon",
+        "role": "Vaša uloga u firmi",
+        "rolePlaceholder": "npr. vlasnik",
+        "consent": "Saglasan/na sam sa politikom privatnosti i potvrđujem da imam pravo da prijavim ovu firmu.",
+        "privacyLink": "Politika privatnosti"
+      },
+      "review": {
+        "title": "Pregled prijave",
+        "description": "Proverite podatke pre slanja. Svaki korak možete izmeniti.",
+        "edit": "Izmeni",
+        "empty": "—",
+        "offeringsCount": "{count} stavki",
+        "imagesCount": "{count} slika"
+      },
+      "success": {
+        "title": "Prijava je poslata",
+        "text": "Hvala! Proveravamo podatke i javljamo vam se na {email} u roku od dva radna dana.",
+        "addAnother": "Prijavi još jednu firmu"
+      },
+      "errors": {
+        "required": "Ovo polje je obavezno.",
+        "tooShort": "Unos je prekratak.",
+        "tooLong": "Unos je predugačak.",
+        "invalid": "Unos nije ispravan.",
+        "tooMany": "Izabrali ste previše stavki.",
+        "tooLarge": "Fajl je prevelik.",
+        "invalidType": "Format slike nije podržan.",
+        "summary": "Proverite polja označena crvenom bojom.",
+        "rateLimit": "Poslali ste previše prijava. Pokušajte ponovo sutra ili nas kontaktirajte direktno.",
+        "generic": "Došlo je do greške pri slanju. Pokušajte ponovo.",
+        "upload": "Otpremanje slika nije uspelo. Pokušajte ponovo ili nastavite bez slika."
+      },
+      "restoredDraft": "Nastavljate tamo gde ste stali.",
+      "discardDraft": "Počni ispočetka"
+    }
   },
   "legal": {
     "privacyTitle": "Politika privatnosti",

@@ -24,8 +24,8 @@ export function CompanyCard({
   const countryLabel = strings.countryLabels[card.country] ?? card.country;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-shadow hover:shadow-md">
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-secondary">
+    <article className="group relative flex flex-col overflow-hidden rounded-xl bg-card shadow-sm transition-shadow hover:shadow-md">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-200">
         {card.coverUrl ? (
           <Image
             src={card.coverUrl}
@@ -37,7 +37,7 @@ export function CompanyCard({
         ) : (
           <div
             aria-hidden="true"
-            className="flex h-full w-full items-center justify-center text-4xl font-semibold text-primary/40"
+            className="flex h-full w-full items-center justify-center font-heading text-4xl text-terracotta-400"
           >
             {card.name.charAt(0).toUpperCase()}
           </div>
@@ -52,19 +52,19 @@ export function CompanyCard({
           </div>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1.5 p-4">
-        <h3 className="font-semibold leading-snug">
+      <div className="flex flex-1 flex-col gap-1.5 p-5">
+        <h3 className="text-xl leading-snug">
           <Link href={href} className="after:absolute after:inset-0">
             {card.name}
           </Link>
         </h3>
         {card.categoryNames.length > 0 && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-neutral-700">
             {card.categoryNames.join(" · ")}
           </p>
         )}
-        <p className="mt-auto flex items-center gap-1 pt-1 text-xs text-muted-foreground">
-          <MapPin className="size-3.5 shrink-0" aria-hidden="true" />
+        <p className="mt-auto flex items-center gap-1.5 pt-1 text-sm font-semibold text-sage-700">
+          <MapPin className="size-4 shrink-0" aria-hidden="true" />
           {card.city}, {countryLabel}
         </p>
       </div>

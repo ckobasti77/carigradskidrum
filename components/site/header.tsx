@@ -41,27 +41,27 @@ export function SiteHeader({ locale, strings }: { locale: Locale; strings: Heade
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 md:px-6">
+    <header className="sticky top-0 z-40 border-b border-neutral-200 bg-background/95 backdrop-blur">
+      <div className="mx-auto flex min-h-20 max-w-[1200px] flex-wrap items-center gap-x-5 gap-y-3 px-5 py-3 lg:px-[clamp(20px,5vw,72px)]">
         <Link
           href={localePath(locale)}
-          className="text-lg font-semibold tracking-tight"
+          className="mr-auto flex min-h-11 items-center font-heading text-2xl"
           aria-label={strings.siteName}
         >
-          Carigradski <span className="text-primary">Drum</span>
+          Carigradski Drum
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label={strings.siteName}>
+        <nav className="hidden items-center gap-1 lg:flex" aria-label={strings.siteName}>
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               aria-current={isActive(item) ? "page" : undefined}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "flex min-h-11 items-center rounded-full px-3 text-[17px] font-semibold transition-colors",
                 isActive(item)
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground",
+                  ? "text-terracotta-700"
+                  : "text-foreground hover:text-terracotta-700",
               )}
             >
               {item.label}
@@ -69,14 +69,14 @@ export function SiteHeader({ locale, strings }: { locale: Locale; strings: Heade
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <LanguageSwitcher locale={locale} label={strings.switcherLabel} />
           <Button asChild size="sm">
             <Link href={localePath(locale, "/dodaj-firmu")}>{strings.addCompany}</Link>
           </Button>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <LanguageSwitcher locale={locale} label={strings.switcherLabel} />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -84,10 +84,10 @@ export function SiteHeader({ locale, strings }: { locale: Locale; strings: Heade
                 <Menu className="size-5" aria-hidden="true" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72">
+            <SheetContent side="right" className="w-80">
               <SheetHeader>
-                <SheetTitle className="text-left text-base">
-                  Carigradski <span className="text-primary">Drum</span>
+                <SheetTitle className="text-left font-heading text-2xl">
+                  Carigradski Drum
                 </SheetTitle>
               </SheetHeader>
               <nav className="mt-2 flex flex-col gap-1 px-4" aria-label={strings.siteName}>
@@ -98,10 +98,10 @@ export function SiteHeader({ locale, strings }: { locale: Locale; strings: Heade
                     onClick={() => setOpen(false)}
                     aria-current={isActive(item) ? "page" : undefined}
                     className={cn(
-                      "rounded-md px-3 py-2.5 text-sm font-medium",
+                      "flex min-h-12 items-center rounded-full px-4 text-base font-semibold transition-colors",
                       isActive(item)
-                        ? "bg-secondary text-foreground"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+                        ? "bg-terracotta-100 text-terracotta-800"
+                        : "text-foreground hover:bg-terracotta-100 hover:text-terracotta-800",
                     )}
                   >
                     {item.label}

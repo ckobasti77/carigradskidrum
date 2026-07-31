@@ -38,14 +38,14 @@ export default async function CardPage({
 
   return (
     <div>
-      <header className="relative overflow-hidden border-b border-border bg-accent/25">
-        <RouteLine className="pointer-events-none absolute inset-x-0 bottom-0 h-20 w-full text-primary/15" />
+      <header className="relative overflow-hidden border-b border-neutral-200 bg-terracotta-100">
+        <RouteLine className="pointer-events-none absolute inset-x-0 bottom-0 h-20 w-full text-terracotta-300" />
         <div className="relative mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
           <p className="flex items-center gap-2 text-sm font-medium text-primary">
             <CreditCard className="size-4" aria-hidden="true" />
             Carigradski Drum
           </p>
-          <h1 className="mt-2 max-w-2xl text-3xl font-semibold tracking-tight md:text-4xl">
+          <h1 className="mt-2 max-w-2xl text-3xl tracking-tight md:text-4xl">
             {dict.card.title}
           </h1>
           <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
@@ -61,7 +61,7 @@ export default async function CardPage({
       </header>
 
       <section className="mx-auto max-w-6xl px-4 py-12 md:px-6">
-        <h2 className="text-2xl font-semibold tracking-tight">
+        <h2 className="text-2xl tracking-tight">
           {dict.card.howTitle}
         </h2>
         <ol className="mt-6 grid gap-6 md:grid-cols-3">
@@ -69,7 +69,7 @@ export default async function CardPage({
             <li key={index} className="flex gap-4">
               <span
                 aria-hidden="true"
-                className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary font-mono text-sm font-semibold text-primary-foreground"
+                className="grid size-14 shrink-0 place-items-center rounded-full bg-terracotta-100 font-heading text-2xl text-terracotta-700"
               >
                 {index + 1}
               </span>
@@ -79,9 +79,9 @@ export default async function CardPage({
         </ol>
       </section>
 
-      <section className="border-t border-border bg-secondary/30">
+      <section className="border-t border-neutral-200 bg-sage-100">
         <div className="mx-auto max-w-6xl px-4 py-12 md:px-6">
-          <h2 className="text-2xl font-semibold tracking-tight">
+          <h2 className="text-2xl tracking-tight">
             {dict.card.partnersTitle}
           </h2>
           {partners.length === 0 ? (

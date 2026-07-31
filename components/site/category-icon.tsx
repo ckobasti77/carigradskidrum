@@ -39,10 +39,13 @@ const ICONS: Record<string, LucideIcon> = {
 export function CategoryIcon({
   name,
   className,
+  strokeWidth,
 }: {
   name: string;
   className?: string;
+  /** Dizajn traži deblju liniju (2.75) u krugovima kategorija. */
+  strokeWidth?: number;
 }) {
   const Icon = ICONS[name] ?? Store;
-  return <Icon className={className} aria-hidden="true" />;
+  return <Icon className={className} strokeWidth={strokeWidth} aria-hidden="true" />;
 }

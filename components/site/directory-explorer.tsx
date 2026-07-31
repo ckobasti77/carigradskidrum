@@ -142,7 +142,7 @@ export function DirectoryExplorer({
       <div className="space-y-3 rounded-lg border border-border bg-card p-4">
         <div className="relative">
           <Search
-            className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+            className="pointer-events-none absolute top-1/2 left-5 size-5 -translate-y-1/2 text-muted-foreground"
             aria-hidden="true"
           />
           <Input
@@ -151,7 +151,7 @@ export function DirectoryExplorer({
             onChange={(e) => setQInput(e.target.value)}
             placeholder={strings.searchPlaceholder}
             aria-label={strings.searchLabel}
-            className="pl-9"
+            className="pl-13"
           />
         </div>
 
@@ -252,14 +252,14 @@ export function DirectoryExplorer({
             </Select>
           </div>
 
-          <label className="flex h-9 cursor-pointer items-center gap-2 text-sm">
+          <label className="flex h-12 cursor-pointer items-center gap-2.5 text-sm">
             <input
               type="checkbox"
               checked={Boolean(filters.acceptsCard)}
               onChange={(e) =>
                 update({ acceptsCard: e.target.checked || undefined })
               }
-              className="size-4 accent-primary"
+              className="size-5 accent-primary"
             />
             {strings.filters.acceptsCard}
           </label>
@@ -317,7 +317,7 @@ export function DirectoryExplorer({
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }, (_, i) => (
             <div key={i} className="space-y-3">
-              <Skeleton className="aspect-[16/10] w-full" />
+              <Skeleton className="aspect-[16/10] w-full rounded-xl" />
               <Skeleton className="h-4 w-2/3" />
               <Skeleton className="h-3 w-1/2" />
             </div>

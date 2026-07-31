@@ -77,6 +77,48 @@ export const revisionMediaValidator = v.object({
   order: v.number(),
 });
 
+/**
+ * Payload of an anonymous "add my company" submission. Mirrors the revision
+ * payload but keeps `locations` as the single source of the country/city
+ * denormalization — slug, status, tier, countries, primaryCity and the search
+ * columns are ALL server-derived at approval time and are deliberately absent
+ * here so client input can never reach them.
+ */
+export const submissionPayloadValidator = v.object({
+  name: v.string(),
+  descriptionSr: v.optional(v.string()),
+  descriptionDe: v.optional(v.string()),
+  website: v.optional(v.string()),
+  phone: v.optional(v.string()),
+  email: v.optional(v.string()),
+  openingHours: v.optional(openingHoursValidator),
+  categorySlugs: v.array(v.string()),
+  locations: v.array(revisionLocationValidator),
+  offerings: v.array(revisionOfferingValidator),
+  media: v.array(revisionMediaValidator),
+  discountOffer: v.optional(
+    v.object({
+      percent: v.number(),
+      termsSr: v.optional(v.string()),
+      termsDe: v.optional(v.string()),
+    }),
+  ),
+});
+
+export const submissionStatusValidator = v.union(
+  v.literal("pending"),
+  v.literal("approved"),
+  v.literal("rejected"),
+  v.literal("spam"),
+);
+
+export const paymentMethodValidator = v.union(
+  v.literal("bank"),
+  v.literal("cash"),
+  v.literal("card"),
+  v.literal("stripe"),
+);
+
 /** Full owner-editable payload of a published-company revision (plan §3.1). */
 export const revisionPayloadValidator = v.object({
   name: v.string(),

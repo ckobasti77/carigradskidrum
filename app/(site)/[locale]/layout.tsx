@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Caprasimo, Figtree } from "next/font/google";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import "../../globals.css";
@@ -10,14 +10,20 @@ import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 
 // latin-ext covers Serbian latin (čćžšđ) and German umlauts.
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin", "latin-ext"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Display face for headings — not a variable font, so `weight` is required and
+// 400 is the only cut that exists. Never pair it with font-semibold/bold: the
+// browser would synthesize a fake bold.
+const caprasimo = Caprasimo({
+  variable: "--font-caprasimo",
+  weight: "400",
   subsets: ["latin", "latin-ext"],
+  display: "swap",
 });
 
 export function generateStaticParams() {
@@ -62,7 +68,7 @@ export default async function SiteLayout({
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${figtree.variable} ${caprasimo.variable} h-full antialiased`}
     >
       <body className="flex min-h-svh flex-col bg-background font-sans text-foreground antialiased">
         <Providers>

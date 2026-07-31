@@ -1,19 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CreditCard } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { hasLocale, localePath } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { t } from "@/lib/i18n/format";
+import { pluralize } from "@/lib/i18n/plural";
 import { getDiscountPartners, getFacets, getNewest } from "@/lib/data";
 import { pageAlternates } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { HomeHero } from "@/components/site/home-hero";
 import { CategoryIcon } from "@/components/site/category-icon";
-import { CompanyCard } from "@/components/site/company-card";
-import { RouteLine } from "@/components/site/route-line";
-import { DiscountBadge } from "@/components/site/discount-badge";
+import { HomeCompanyCard } from "@/components/site/home-company-card";
 
 export const revalidate = 600;
+
+/** Tinte se smenjuju kroz grid — terakota, žalfija, terakota… */
+function tone(index: number) {
+  return index % 2 === 0
+    ? { bg: "bg-terracotta-100", text: "text-terracotta-700" }
+    : { bg: "bg-sage-100", text: "text-sage-700" };
+}
 
 export async function generateMetadata({
   params,
@@ -42,11 +49,11 @@ export default async function HomePage({
 
   const cardStrings = {
     countryLabels: dict.common.countries,
-    discountTemplate: dict.company.discountBadge,
+    discountTemplate: dict.company.discountBadgeShort,
   };
 
   return (
-    <>
+    <div className="mx-auto max-w-[1200px] px-[clamp(20px,5vw,72px)]">
       <HomeHero
         locale={locale}
         strings={{
@@ -55,164 +62,208 @@ export default async function HomePage({
           searchPlaceholder: dict.home.hero.searchPlaceholder,
           searchLabel: dict.home.hero.searchLabel,
           searchButton: dict.common.actions.search,
+          imageAlt: dict.home.hero.imageAlt,
         }}
+        trust={[
+          {
+            label: t(dict.home.hero.trust.companies, { count: facets.total }),
+            tone: "terracotta",
+          },
+          {
+            label: t(dict.home.hero.trust.categories, {
+              count: facets.categories.length,
+            }),
+            tone: "sage",
+          },
+          { label: dict.home.hero.trust.regions, tone: "terracotta" },
+        ]}
       />
 
-      {/* Categories */}
-      <section className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              {dict.home.categories.title}
-            </h2>
-            <p className="mt-1 text-muted-foreground">
-              {dict.home.categories.subtitle}
-            </p>
-          </div>
-          <Button asChild variant="ghost" className="shrink-0">
-            <Link href={localePath(locale, "/firme")}>
-              {dict.common.actions.viewAll}
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
-          </Button>
-        </div>
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {facets.categories.map((category) => (
+      {/* Kategorije */}
+      <section id="kategorije" className="py-[clamp(40px,5vw,72px)]">
+        <h2 className="text-[clamp(30px,3vw,42px)]">{dict.home.categories.title}</h2>
+        <p className="mt-3.5 text-[19px] text-neutral-800">
+          {dict.home.categories.subtitle}
+        </p>
+
+        <ul className="mt-9 grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))]">
+          {facets.categories.map((category, index) => (
             <li key={category.slug}>
               <Link
                 href={localePath(locale, `/kategorija/${category.slug}`)}
-                className="group flex h-full items-center gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-primary/5"
+                className="flex h-full items-center gap-4 rounded-lg bg-neutral-100 px-5 py-4.5 transition-colors hover:bg-terracotta-100"
               >
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-secondary text-primary">
-                  <CategoryIcon name={category.icon} className="size-5" />
+                <span
+                  className={`grid size-13 shrink-0 place-items-center rounded-full ${tone(index).bg} ${tone(index).text}`}
+                >
+                  <CategoryIcon
+                    name={category.icon}
+                    className="size-6.5"
+                    strokeWidth={2.75}
+                  />
                 </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-medium">
+                <span>
+                  <strong className="block text-base leading-snug font-bold">
                     {category.name}
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    {category.count} {dict.home.categories.companiesSuffix}
+                  </strong>
+                  <span className="text-xs text-neutral-700">
+                    {pluralize(locale, category.count, dict.home.categories.companies)}
                   </span>
                 </span>
               </Link>
             </li>
           ))}
+
+          <li>
+            <Link
+              href={localePath(locale, "/firme")}
+              className="flex h-full items-center justify-center gap-2.5 rounded-lg border-2 border-terracotta-300 px-5 py-4.5 text-base font-bold text-terracotta-700 transition-colors hover:bg-terracotta-100"
+            >
+              {dict.home.categories.viewAllTile}
+              <ArrowRight className="size-5.5" strokeWidth={2.75} aria-hidden="true" />
+            </Link>
+          </li>
         </ul>
       </section>
 
-      {/* Newest / featured companies */}
-      {newest.items.length > 0 && (
-        <section className="border-y border-border bg-secondary/30">
-          <div className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
-            <div className="mb-8">
-              <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-                {newest.isFeatured
-                  ? dict.home.newest.titleFeatured
-                  : dict.home.newest.titleFallback}
-              </h2>
-              <p className="mt-1 text-muted-foreground">{dict.home.newest.subtitle}</p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {newest.items.map((card) => (
-                <CompanyCard
-                  key={card.id}
-                  locale={locale}
-                  card={card}
-                  strings={cardStrings}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* How it works */}
-      <section className="relative mx-auto max-w-6xl overflow-hidden px-4 py-14 md:px-6 md:py-20">
-        <RouteLine className="pointer-events-none absolute inset-x-0 top-10 hidden h-16 w-full text-primary/10 md:block" />
-        <h2 className="relative mb-10 text-2xl font-semibold tracking-tight md:text-3xl">
-          {dict.home.howItWorks.title}
-        </h2>
-        <ol className="relative grid gap-8 md:grid-cols-3">
+      {/* Kako funkcioniše */}
+      <section className="py-[clamp(40px,5vw,72px)]">
+        <h2 className="text-[clamp(30px,3vw,42px)]">{dict.home.howItWorks.title}</h2>
+        <ol className="mt-10 grid gap-[clamp(24px,4vw,56px)] [grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))]">
           {dict.home.howItWorks.steps.map((step, index) => (
-            <li key={step.title} className="flex gap-4">
+            <li key={step.title}>
               <span
                 aria-hidden="true"
-                className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary font-mono text-sm font-semibold text-primary-foreground"
+                className={`grid size-19 place-items-center rounded-full font-heading text-[34px] ${tone(index).bg} ${tone(index).text}`}
               >
                 {index + 1}
               </span>
-              <div>
-                <h3 className="font-semibold">{step.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{step.text}</p>
-              </div>
+              <h3 className="mt-5 text-2xl">{step.title}</h3>
+              <p className="mt-2.5 text-base text-neutral-800">{step.text}</p>
             </li>
           ))}
         </ol>
       </section>
 
-      {/* Card promo + partners */}
-      <section className="border-y border-border bg-accent/25">
-        <div className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="max-w-xl">
-              <p className="flex items-center gap-2 text-sm font-medium text-primary">
-                <CreditCard className="size-4" aria-hidden="true" />
-                {dict.home.cardPromo.title}
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
-                {dict.home.partners.title}
+      {/* Novo na platformi */}
+      {newest.items.length > 0 && (
+        <section className="py-[clamp(40px,5vw,72px)]">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <div>
+              <h2 className="text-[clamp(30px,3vw,42px)]">
+                {newest.isFeatured
+                  ? dict.home.newest.titleFeatured
+                  : dict.home.newest.titleFallback}
               </h2>
-              <p className="mt-1 text-muted-foreground">{dict.home.partners.subtitle}</p>
+              <p className="mt-3.5 text-[19px] text-neutral-800">
+                {dict.home.newest.subtitle}
+              </p>
             </div>
-            <Button asChild>
-              <Link href={localePath(locale, "/kartica")}>
-                {dict.home.cardPromo.cta}
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-            </Button>
+            <Link
+              href={localePath(locale, "/firme")}
+              className="inline-flex min-h-11 items-center text-base font-bold whitespace-nowrap text-terracotta-700 hover:underline"
+            >
+              {dict.common.actions.viewAll} →
+            </Link>
           </div>
-          {partners.length > 0 && (
-            <ul className="mt-8 flex flex-wrap gap-3">
-              {partners.map((partner) => (
-                <li key={partner.id}>
-                  <Link
-                    href={localePath(locale, `/firma/${partner.slug}`)}
-                    className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium transition-colors hover:border-primary/40"
-                  >
-                    {partner.name}
-                    {partner.discountPercent !== null && (
-                      <DiscountBadge
-                        percent={partner.discountPercent}
-                        template={dict.company.discountBadge}
-                        compact
-                      />
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
+
+          <div className="mt-9 grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))]">
+            {newest.items.map((card, index) => (
+              <HomeCompanyCard
+                key={card.id}
+                locale={locale}
+                card={card}
+                index={index}
+                strings={cardStrings}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Kartica popusta */}
+      <section id="kartica" className="py-[clamp(40px,5vw,72px)]">
+        <div className="grid items-center gap-[clamp(28px,4vw,64px)] rounded-xl bg-sage-100 p-[clamp(28px,4vw,64px)] [grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))]">
+          <div>
+            <span className="mb-3.5 block text-xs font-bold tracking-[0.06em] uppercase text-sage-800">
+              {dict.home.cardPromo.title}
+            </span>
+            <h2 className="text-[clamp(28px,2.8vw,40px)]">{dict.home.partners.title}</h2>
+            <p className="mt-4.5 max-w-[50ch] text-base text-neutral-800">
+              {dict.home.cardPromo.text}
+            </p>
+
+            {partners.length > 0 && (
+              <ul className="mt-6 flex flex-wrap gap-2.5">
+                {partners.map((partner) => (
+                  <li key={partner.id}>
+                    <Link
+                      href={localePath(locale, `/firma/${partner.slug}`)}
+                      className="inline-flex min-h-11 items-center rounded-full bg-terracotta-100 px-4 text-xs text-terracotta-800 transition-colors hover:bg-terracotta-200"
+                    >
+                      {partner.name}
+                      {partner.discountPercent !== null && (
+                        <span className="ml-1.5 font-semibold">
+                          −{partner.discountPercent}%
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <div className="mt-7">
+              <Button asChild variant="secondary">
+                <Link href={localePath(locale, "/kartica")}>
+                  {dict.home.cardPromo.cta}
+                </Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Maketa kartice — čisto dekorativna. */}
+          <div aria-hidden="true" className="w-[min(380px,100%)] justify-self-center">
+            {/* `w-full` je obavezan: bez njega `aspect-ratio` računa širinu iz
+                `min-h` i kartica preraste svoju kolonu na uskim ekranima. */}
+            <div className="flex aspect-[86/54] min-h-[220px] w-full -rotate-3 flex-col justify-between rounded-3xl bg-terracotta px-7.5 py-6.5 text-terracotta-100 shadow-lg">
+              <div className="flex items-start justify-between">
+                <span className="font-heading text-xl leading-[1.15]">
+                  Carigradski
+                  <br />
+                  Drum
+                </span>
+                <span className="h-8.5 w-11 rounded-sm bg-terracotta-300" />
+              </div>
+              <div>
+                <span className="block text-xs tracking-[0.14em] uppercase opacity-85">
+                  {dict.home.cardPromo.mockupLabel}
+                </span>
+                <span className="mt-1.5 block text-[19px] font-bold tracking-[0.08em]">
+                  •••• {new Date().getFullYear()}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CTA band */}
-      <section className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
-        <div className="flex flex-col items-start gap-5 rounded-xl bg-primary px-6 py-10 text-primary-foreground md:flex-row md:items-center md:justify-between md:px-10">
+      {/* Imate firmu? */}
+      <section className="pt-[clamp(20px,3vw,40px)] pb-[clamp(48px,6vw,88px)]">
+        <div className="flex flex-wrap items-center justify-between gap-7 rounded-xl bg-terracotta-100 p-[clamp(28px,4vw,64px)]">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              {dict.home.ctaBand.title}
-            </h2>
-            <p className="mt-1 max-w-xl text-primary-foreground/85">
+            <h2 className="text-[clamp(28px,2.8vw,40px)]">{dict.home.ctaBand.title}</h2>
+            <p className="mt-3.5 max-w-[52ch] text-base text-neutral-800">
               {dict.home.ctaBand.text}
             </p>
           </div>
-          <Button asChild size="lg" variant="secondary" className="shrink-0">
+          <Button asChild size="lg" className="shrink-0">
             <Link href={localePath(locale, "/dodaj-firmu")}>
               {dict.home.ctaBand.cta}
             </Link>
           </Button>
         </div>
       </section>
-    </>
+    </div>
   );
 }

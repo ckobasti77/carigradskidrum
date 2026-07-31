@@ -46,16 +46,24 @@ export const ENTITLEMENTS = {
     showContact: true,
     showHours: true,
     maxVisibleGalleryImages: 12,
-    maxVisibleOfferings: 20,
+    maxVisibleOfferings: 500,
     priorityRank: 1,
     featuredEligible: true,
   },
 } as const;
 
-/** Hard write caps — enforced for every tier in wizard mutations (anti-abuse). */
+/**
+ * Hard write caps — enforced for every tier in wizard mutations (anti-abuse).
+ *
+ * `offerings` is deliberately NOT surfaced in the wizard UI (no counter, no
+ * "N left" hint): the product decision is "unlimited products". 500 is a
+ * transaction-safety ceiling, not a product limit — each offering is its own
+ * document and a single Convex mutation cannot insert an unbounded number of
+ * them without blowing the per-transaction write budget.
+ */
 export const WRITE_CAPS = {
   galleryImages: 12,
-  offerings: 20,
+  offerings: 500,
   descriptionLength: 4000,
 };
 

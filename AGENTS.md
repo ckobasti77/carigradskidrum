@@ -185,6 +185,41 @@ continue from the approved plan.
   prefers-reduced-motion. Framer for micro-interactions + template.tsx page
   transitions (M5). Never both libs on one element.
 
+## Self-serve submissions + admin panel
+- New companies enter ONLY through `companySubmissions` (public wizard on
+  /dodaj-firmu → convex/submissions.ts:submit). They are never rows in
+  `companies` until `convex/admin.ts:approveSubmission` promotes them — that is
+  what keeps spam from squatting slugs and polluting the by_status browse scan.
+- Validation lives in `convex/lib/companyInput.ts` and is imported by BOTH the
+  client wizard and the mutation. Add rules there, never in one side only.
+- `convex/lib/companyWrite.ts:recomputeCompanyDerived` is the ONLY sanctioned
+  way to finish a company write — it rebuilds searchTextSr/De, countries,
+  primaryCity(+Slug) and the discount denorm from the actual rows. Call it after
+  every mutation that touches company data. `deleteCompanyCascade` is the only
+  correct delete (storage blobs included).
+- `convex/lib/subscriptions.ts:applySubscriptionState` is the ONLY writer of
+  `companies.tier` / `paidUntil`. Admin forms edit the `subscriptions` row and
+  call it; nothing sets a tier by hand.
+- `convex/crons.ts` sweeps storage blobs that no `media` row and no pending
+  submission references, older than 24h. Wizard images upload at submit time, so
+  the orphan window is small but real.
+- Admin lives at `app/(admin)/admin/` with its OWN root layout (there is no
+  app/layout.tsx). Structure: root layout = html/body + config guard,
+  `/admin/login` = sign-in, `(panel)/` = everything behind the gate. Pages call
+  `requireAdminPage()` themselves — Next renders layout and page concurrently,
+  so the layout gate alone does not stop a page's data fetch.
+- Admin is server-rendered + Server Actions. `ADMIN_SECRET` guards every
+  convex/admin.ts function and stays on the Next server (lib/admin/convex.ts);
+  `ADMIN_PASSWORD` + `ADMIN_SESSION_SECRET` gate the UI (HMAC cookie, fails
+  closed when unset). Admin copy is Serbian-only — documented exception to the
+  dictionary rule, see app/(admin)/admin/strings.ts.
+- Read the clock through `requestNow()` (admin) or `hourNow()` (public data),
+  never `Date.now()` inside a component body — the react-hooks purity rule is an
+  eslint ERROR here.
+- `WRITE_CAPS.offerings = 500` is a transaction-safety ceiling, NOT a product
+  limit: the wizard shows no counter because "unlimited products" is the
+  product decision.
+
 ## Do / Don't
 - DO keep public pages ISR through lib/data.ts; future /account + /admin are
   client-only + noindex and never in the sitemap.

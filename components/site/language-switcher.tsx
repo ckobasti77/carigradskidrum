@@ -22,7 +22,7 @@ export function LanguageSwitcher({
   }
 
   return (
-    <nav aria-label={label} className="flex items-center rounded-md border border-border p-0.5">
+    <nav aria-label={label} className="flex items-center gap-1">
       {locales.map((target) => (
         <Link
           key={target}
@@ -32,10 +32,10 @@ export function LanguageSwitcher({
             document.cookie = `${LOCALE_COOKIE}=${target};path=/;max-age=31536000;samesite=lax`;
           }}
           className={cn(
-            "rounded-[0.3rem] px-2 py-1 text-xs font-medium uppercase transition-colors",
+            "flex min-h-11 items-center rounded-full px-3 text-sm font-bold uppercase transition-colors",
             target === locale
-              ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:text-foreground",
+              ? "bg-sage-200 text-sage-800"
+              : "text-neutral-500 hover:text-foreground",
           )}
         >
           {target}

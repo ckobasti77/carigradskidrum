@@ -84,7 +84,7 @@ export default async function DirectoryPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
       <header className="mb-6 space-y-1">
-        <h1 className="text-3xl font-semibold tracking-tight">
+        <h1 className="text-3xl tracking-tight">
           {dict.directory.title}
         </h1>
         <p className="text-muted-foreground">{dict.directory.subtitle}</p>

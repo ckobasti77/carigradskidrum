@@ -3,7 +3,8 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card" className={cn("rounded-xl border bg-card text-card-foreground shadow-sm", className)} {...props} />;
+  // `rounded-xl` je u ovom sistemu 32px — radijus `.card` iz token sheet-a.
+  return <div data-slot="card" className={cn("rounded-xl border border-neutral-200 bg-card text-card-foreground shadow-sm", className)} {...props} />;
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
@@ -11,7 +12,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="card-title" className={cn("font-semibold leading-none tracking-tight", className)} {...props} />;
+  return <div data-slot="card-title" className={cn("font-heading text-xl leading-tight", className)} {...props} />;
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {

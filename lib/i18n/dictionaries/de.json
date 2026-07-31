@@ -54,12 +54,24 @@
       "title": "Finden Sie geprüfte Firmen zwischen Österreich und dem Balkan",
       "subtitle": "Carigradski Drum verbindet die Diaspora und lokale Kunden mit Handwerkern, Dienstleistern und Unternehmen — von Wien bis Belgrad. Für manche alles, für jeden etwas.",
       "searchPlaceholder": "Was brauchen Sie? z. B. „Installateur”, „Zahnarzt”, „Transport”…",
-      "searchLabel": "Firmensuche"
+      "searchLabel": "Firmensuche",
+      "imageAlt": "Handwerker und Kundin geben sich nach getaner Arbeit die Hand",
+      "trust": {
+        "companies": "{count} geprüfte Firmen",
+        "categories": "{count} Branchen",
+        "regions": "Österreich · Serbien · Balkan"
+      }
     },
     "categories": {
       "title": "Kategorien",
       "subtitle": "Finden Sie Firmen nach Branche",
-      "companiesSuffix": "Firmen"
+      "companiesSuffix": "Firmen",
+      "companies": {
+        "one": "Firma",
+        "few": "Firmen",
+        "many": "Firmen"
+      },
+      "viewAllTile": "Alle Firmen anzeigen"
     },
     "newest": {
       "titleFeatured": "Empfohlene Firmen",
@@ -86,7 +98,8 @@
     "cardPromo": {
       "title": "Carigradski-Drum-Karte",
       "text": "Rabatte bei Partnerfirmen auf der Plattform — achten Sie auf die Rabatt-Kennzeichnung in den Profilen.",
-      "cta": "Mehr zur Karte"
+      "cta": "Mehr zur Karte",
+      "mockupLabel": "Rabattkarte"
     },
     "partners": {
       "title": "Partner mit Rabatt",
@@ -142,6 +155,7 @@
     "email": "E-Mail",
     "getDirections": "Route anzeigen",
     "discountBadge": "{percent}% mit der Carigradski-Drum-Karte",
+    "discountBadgeShort": "−{percent}% mit der Karte",
     "acceptsCardNote": "Diese Firma gewährt Rabatt mit der Carigradski-Drum-Karte.",
     "claim": {
       "title": "Ist das Ihre Firma?",
@@ -221,8 +235,135 @@
         "text": "Als Rabatt-Partner erhalten Sie eine besondere Kennzeichnung und einen Platz auf der Kartenseite."
       }
     ],
-    "selfServiceSoon": "Das selbstständige Eintragen und Bearbeiten von Profilen kommt in Kürze. Bis dahin kontaktieren Sie uns — wir tragen Ihre Firma für Sie ein.",
-    "contactPrompt": "Erreichen Sie uns unter"
+    "helpTitle": "Lieber, dass wir das übernehmen?",
+    "helpText": "Wenn es Ihnen leichter fällt, füllen wir die Eintragung für Sie aus. Melden Sie sich — wir nehmen die Daten telefonisch oder per E-Mail auf.",
+    "contactPrompt": "Erreichen Sie uns unter",
+    "form": {
+      "title": "Firma eintragen",
+      "lead": "Das Ausfüllen dauert etwa fünf Minuten. Wir prüfen die Eintragung und veröffentlichen sie innerhalb von zwei Werktagen.",
+      "stepLabel": "Schritt {current} von {total}",
+      "progressLabel": "Fortschritt der Eintragung",
+      "optionalStep": "Diesen Schritt können Sie überspringen.",
+      "optional": "optional",
+      "next": "Weiter",
+      "back": "Zurück",
+      "skip": "Schritt überspringen",
+      "submit": "Eintragung senden",
+      "submitting": "Wird gesendet…",
+      "uploading": "Bilder werden hochgeladen…",
+      "steps": {
+        "basics": "Basis",
+        "location": "Standort",
+        "contact": "Kontakt",
+        "offer": "Angebot",
+        "submitter": "Ihre Daten",
+        "review": "Überprüfung"
+      },
+      "basics": {
+        "title": "Basisdaten",
+        "description": "Wie Ihre Firma heißt und was sie macht.",
+        "name": "Firmenname",
+        "namePlaceholder": "z. B. Autowerkstatt Marković",
+        "categories": "Branchen",
+        "categoriesHint": "Wählen Sie bis zu {max} Branchen, die Ihre Arbeit am besten beschreiben.",
+        "descriptionSr": "Beschreibung auf Serbisch",
+        "descriptionSrHint": "Was Sie tun, für wen Sie arbeiten und was Sie auszeichnet. Mindestens {min} Zeichen.",
+        "descriptionDe": "Beschreibung auf Deutsch",
+        "descriptionDeHint": "Optional. Bleibt das Feld leer, zeigen wir auch deutschen Besuchern die serbische Beschreibung.",
+        "duplicateWarning": "Eine ähnliche Firma ist bereits im Verzeichnis:",
+        "duplicateHint": "Wenn das Ihre Firma ist, melden Sie sich bei uns, statt eine neue Eintragung zu senden."
+      },
+      "location": {
+        "title": "Wo Kunden Sie finden",
+        "description": "Die Adresse erscheint im Profil und auf der Karte.",
+        "country": "Land",
+        "city": "Stadt",
+        "cityPlaceholder": "z. B. Beč",
+        "address": "Adresse",
+        "addressPlaceholder": "Straße und Hausnummer",
+        "zip": "Postleitzahl"
+      },
+      "contact": {
+        "title": "Kontakt und Öffnungszeiten",
+        "description": "Telefon, E-Mail und Öffnungszeiten werden Besuchern mit dem bezahlten Paket angezeigt. Die Daten speichern wir sofort.",
+        "website": "Webseite",
+        "websitePlaceholder": "z. B. meinefirma.at",
+        "phone": "Telefon",
+        "email": "Firmen-E-Mail",
+        "emailHint": "An diese Adresse leiten wir Kundenanfragen weiter.",
+        "hoursTitle": "Öffnungszeiten",
+        "hoursHint": "Markieren Sie die Tage, an denen Sie geöffnet haben, und tragen Sie die Zeiten ein.",
+        "openLabel": "Geöffnet",
+        "from": "Von",
+        "to": "Bis"
+      },
+      "offer": {
+        "title": "Bilder und Angebot",
+        "description": "Ein Profil mit Bild bekommt deutlich mehr Klicks.",
+        "logo": "Logo",
+        "cover": "Titelbild",
+        "gallery": "Galerie",
+        "galleryHint": "Bis zu {max} Fotos.",
+        "imageHint": "JPG, PNG oder WebP, bis {mb} MB.",
+        "chooseImage": "Bild auswählen",
+        "chooseImages": "Fotos hinzufügen",
+        "removeImage": "Bild entfernen",
+        "offeringsTitle": "Produkte und Leistungen",
+        "offeringsHint": "Fügen Sie so viele Einträge hinzu, wie Sie möchten.",
+        "addOffering": "Eintrag hinzufügen",
+        "removeOffering": "Eintrag entfernen",
+        "offeringType": "Art",
+        "offeringProduct": "Produkt",
+        "offeringService": "Leistung",
+        "offeringName": "Bezeichnung",
+        "offeringDescription": "Kurze Beschreibung",
+        "discountTitle": "Rabatt für Karteninhaber",
+        "discountToggle": "Ich möchte Rabatt-Partner werden",
+        "discountPercent": "Rabatt (%)",
+        "discountTerms": "Rabattbedingungen",
+        "discountNote": "Die Rabatt-Kennzeichnung im Profil wird mit dem bezahlten Paket aktiviert. Wir erfassen Ihre Angabe sofort und melden uns mit den Details."
+      },
+      "submitter": {
+        "title": "Ihre Daten",
+        "description": "Damit wir wissen, mit wem wir sprechen. Diese Daten erscheinen nicht im Profil.",
+        "name": "Vor- und Nachname",
+        "email": "Ihre E-Mail",
+        "emailHint": "An diese Adresse senden wir die Bestätigung und unsere Antwort.",
+        "phone": "Telefon",
+        "role": "Ihre Rolle in der Firma",
+        "rolePlaceholder": "z. B. Inhaber",
+        "consent": "Ich stimme der Datenschutzerklärung zu und bestätige, dass ich berechtigt bin, diese Firma einzutragen.",
+        "privacyLink": "Datenschutzerklärung"
+      },
+      "review": {
+        "title": "Eintragung prüfen",
+        "description": "Prüfen Sie die Daten vor dem Senden. Jeden Schritt können Sie ändern.",
+        "edit": "Ändern",
+        "empty": "—",
+        "offeringsCount": "{count} Einträge",
+        "imagesCount": "{count} Bilder"
+      },
+      "success": {
+        "title": "Eintragung gesendet",
+        "text": "Danke! Wir prüfen die Daten und melden uns innerhalb von zwei Werktagen an {email}.",
+        "addAnother": "Weitere Firma eintragen"
+      },
+      "errors": {
+        "required": "Dieses Feld ist erforderlich.",
+        "tooShort": "Die Eingabe ist zu kurz.",
+        "tooLong": "Die Eingabe ist zu lang.",
+        "invalid": "Die Eingabe ist ungültig.",
+        "tooMany": "Sie haben zu viele Einträge gewählt.",
+        "tooLarge": "Die Datei ist zu groß.",
+        "invalidType": "Dieses Bildformat wird nicht unterstützt.",
+        "summary": "Bitte prüfen Sie die rot markierten Felder.",
+        "rateLimit": "Sie haben zu viele Eintragungen gesendet. Versuchen Sie es morgen erneut oder kontaktieren Sie uns direkt.",
+        "generic": "Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+        "upload": "Der Bild-Upload ist fehlgeschlagen. Versuchen Sie es erneut oder fahren Sie ohne Bilder fort."
+      },
+      "restoredDraft": "Sie machen dort weiter, wo Sie aufgehört haben.",
+      "discardDraft": "Neu beginnen"
+    }
   },
   "legal": {
     "privacyTitle": "Datenschutzerklärung",

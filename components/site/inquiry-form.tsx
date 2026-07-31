@@ -70,7 +70,7 @@ export function InquiryForm({
     return (
       <div
         role="status"
-        className="flex items-start gap-2 rounded-lg border border-border bg-secondary/40 p-4 text-sm"
+        className="flex items-start gap-2 rounded-lg border border-neutral-200 bg-sage-100 p-4 text-sm"
       >
         <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
         {strings.success}
@@ -81,7 +81,7 @@ export function InquiryForm({
   return (
     <form onSubmit={onSubmit} className="space-y-3">
       <div>
-        <h2 className="font-semibold">{strings.title}</h2>
+        <h2 className="text-xl">{strings.title}</h2>
         <p className="text-sm text-muted-foreground">{strings.subtitle}</p>
       </div>
 

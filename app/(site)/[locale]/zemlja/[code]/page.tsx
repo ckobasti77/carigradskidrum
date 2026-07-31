@@ -70,7 +70,7 @@ export default async function CountryPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
       <header className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight">
+        <h1 className="text-3xl tracking-tight">
           {t(dict.country.companiesIn, { country: label })}
         </h1>
       </header>

@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-24 md:px-6">
       <p className="text-sm font-medium text-primary">404</p>
-      <h1 className="text-3xl font-semibold tracking-tight">
+      <h1 className="text-3xl tracking-tight">
         Stranica nije pronađena · Seite nicht gefunden
       </h1>
       <p className="max-w-prose text-muted-foreground">

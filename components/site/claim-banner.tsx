@@ -15,7 +15,7 @@ export function ClaimBanner({
   strings: { title: string; text: string; button: string };
 }) {
   return (
-    <div className="rounded-lg border border-primary/25 bg-primary/5 p-4">
+    <div className="rounded-lg border border-terracotta-300 bg-terracotta-100 p-4">
       <p className="flex items-center gap-2 font-medium">
         <BadgeCheck className="size-4 text-primary" aria-hidden="true" />
         {strings.title}

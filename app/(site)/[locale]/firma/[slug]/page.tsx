@@ -87,7 +87,7 @@ export default async function CompanyPage({
       <script {...jsonLdScriptProps(localBusinessJsonLd(profile, locale, siteUrl))} />
 
       {/* Title bar */}
-      <header className="relative overflow-hidden border-b border-border bg-secondary/40">
+      <header className="relative overflow-hidden border-b border-neutral-200 bg-sage-100">
         {profile.cover?.url && (
           <>
             <Image
@@ -122,7 +122,7 @@ export default async function CompanyPage({
               />
             )}
           </div>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
+          <h1 className="mt-3 text-3xl tracking-tight md:text-4xl">
             {profile.name}
           </h1>
           {primaryLocation && (
@@ -140,7 +140,7 @@ export default async function CompanyPage({
           {/* Overview */}
           {profile.description && (
             <section aria-labelledby="section-overview">
-              <h2 id="section-overview" className="text-xl font-semibold">
+              <h2 id="section-overview" className="text-xl">
                 {dict.company.sections.overview}
               </h2>
               <p className="mt-3 whitespace-pre-line leading-relaxed text-foreground/90">
@@ -152,7 +152,7 @@ export default async function CompanyPage({
           {/* Offerings (paid tier) */}
           {profile.offerings.length > 0 && (
             <section aria-labelledby="section-offerings">
-              <h2 id="section-offerings" className="text-xl font-semibold">
+              <h2 id="section-offerings" className="text-xl">
                 {dict.company.sections.offerings}
               </h2>
               <ul className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -183,7 +183,7 @@ export default async function CompanyPage({
           {/* Gallery (paid tier) */}
           {profile.gallery.length > 0 && (
             <section aria-labelledby="section-gallery">
-              <h2 id="section-gallery" className="text-xl font-semibold">
+              <h2 id="section-gallery" className="text-xl">
                 {dict.company.sections.gallery}
               </h2>
               <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -211,7 +211,7 @@ export default async function CompanyPage({
           {/* Location */}
           {primaryLocation && (
             <section aria-labelledby="section-location">
-              <h2 id="section-location" className="text-xl font-semibold">
+              <h2 id="section-location" className="text-xl">
                 {dict.company.sections.location}
               </h2>
               <div className="mt-3 space-y-3">
@@ -245,7 +245,7 @@ export default async function CompanyPage({
           {/* Similar companies */}
           {profile.similar.length > 0 && (
             <section aria-labelledby="section-similar">
-              <h2 id="section-similar" className="text-xl font-semibold">
+              <h2 id="section-similar" className="text-xl">
                 {dict.company.sections.similar}
               </h2>
               <div className="mt-3 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -306,7 +306,7 @@ export default async function CompanyPage({
                         <td className="py-0.5 pr-3">
                           {dict.common.days[entry.day] ?? entry.day}
                         </td>
-                        <td className="py-0.5 text-right font-mono tabular-nums">
+                        <td className="py-0.5 text-right tabular-nums">
                           {entry.open}–{entry.close}
                         </td>
                       </tr>
@@ -316,7 +316,7 @@ export default async function CompanyPage({
               </div>
             )}
             {profile.discountPercent !== null && (
-              <p className="rounded-md bg-accent/40 p-3 text-sm">
+              <p className="rounded-md bg-terracotta-100 p-3 text-sm">
                 {t(dict.company.discountBadge, { percent: profile.discountPercent })}
               </p>
             )}

@@ -64,14 +64,14 @@ export default async function CategoryPage({
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
       <header className="mb-8 max-w-3xl">
         <div className="flex items-center gap-3">
-          <span className="flex size-12 items-center justify-center rounded-lg bg-secondary text-primary">
+          <span className="grid size-13 place-items-center rounded-full bg-terracotta-100 text-terracotta-700">
             <CategoryIcon name={category.icon} className="size-6" />
           </span>
           <div>
             <p className="text-sm text-muted-foreground">
               {dict.category.companiesIn}
             </p>
-            <h1 className="text-3xl font-semibold tracking-tight">{name}</h1>
+            <h1 className="text-3xl tracking-tight">{name}</h1>
           </div>
         </div>
         {description && (

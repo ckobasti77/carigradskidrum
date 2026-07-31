@@ -46,9 +46,9 @@ export default async function AboutPage({
 
   return (
     <div className="relative overflow-hidden">
-      <RouteLine className="pointer-events-none absolute inset-x-0 top-24 h-20 w-full text-primary/10" />
+      <RouteLine className="pointer-events-none absolute inset-x-0 top-24 h-20 w-full text-terracotta-300" />
       <div className="relative mx-auto max-w-3xl px-4 py-14 md:px-6 md:py-20">
-        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+        <h1 className="text-3xl tracking-tight md:text-4xl">
           {dict.about.title}
         </h1>
         <p className="mt-3 text-lg text-muted-foreground">{dict.about.lead}</p>

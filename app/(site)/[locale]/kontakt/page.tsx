@@ -32,7 +32,7 @@ export default async function ContactPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 md:px-6 md:py-20">
-      <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+      <h1 className="text-3xl tracking-tight md:text-4xl">
         {dict.contact.title}
       </h1>
       <p className="mt-3 text-lg text-muted-foreground">{dict.contact.lead}</p>
