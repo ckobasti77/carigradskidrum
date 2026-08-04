@@ -101,8 +101,8 @@ export default async function DirectoryPage({
           filters: dict.directory.filters,
           sort: dict.directory.sort,
           resultsCount: dict.directory.resultsCount,
+          visibleCount: dict.directory.visibleCount,
           empty: dict.directory.empty,
-          showMore: dict.common.actions.showMore,
           card: {
             countryLabels: dict.common.countries,
             discountTemplate: dict.company.discountBadge,

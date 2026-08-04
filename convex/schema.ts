@@ -2,6 +2,7 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 import {
   companyStatusValidator,
+  contactTopicValidator,
   countryValidator,
   localeValidator,
   mediaKindValidator,
@@ -212,6 +213,16 @@ export default defineSchema({
     locale: localeValidator,
     status: v.union(v.literal("new"), v.literal("read")),
   }).index("by_company", ["companyId"]),
+
+  contactMessages: defineTable({
+    name: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    topic: contactTopicValidator,
+    message: v.string(),
+    locale: localeValidator,
+    status: v.union(v.literal("new"), v.literal("read")),
+  }).index("by_email", ["email"]),
 
   stripeEvents: defineTable({
     eventId: v.string(),

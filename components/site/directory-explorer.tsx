@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "convex/react";
 import { RotateCcw, Search } from "lucide-react";
 import { api } from "@/convex/_generated/api";
@@ -20,6 +20,7 @@ import { t } from "@/lib/i18n/format";
 import type { CountryCode } from "@/convex/lib/constants";
 import type { DirectoryFilters, DirectoryResult, FacetsResult } from "@/lib/data";
 import { CompanyCard, type CompanyCardStrings } from "./company-card";
+import { CompanyCardGrid } from "./company-card-grid";
 import { EmptyState } from "./empty-state";
 
 const PAGE_SIZE = 24;
@@ -40,8 +41,8 @@ export type DirectoryStrings = {
   };
   sort: { label: string; recommended: string; newest: string };
   resultsCount: string;
+  visibleCount: string;
   empty: { title: string; text: string };
-  showMore: string;
   card: CompanyCardStrings;
 };
 
@@ -91,6 +92,8 @@ export function DirectoryExplorer({
   const [filters, setFilters] = useState<DirectoryFilters>(initialFilters);
   const [qInput, setQInput] = useState(initialFilters.q ?? "");
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const blockInitialRevealRef = useRef(false);
   const [now] = useState(() => Math.floor(Date.now() / 3_600_000) * 3_600_000);
 
   // Debounced search commit (setState inside the timeout callback, not the
@@ -99,6 +102,7 @@ export function DirectoryExplorer({
     const timer = setTimeout(() => {
       setFilters((f) => {
         if ((f.q ?? "") === qInput.trim()) return f;
+        blockInitialRevealRef.current = true;
         setVisible(PAGE_SIZE);
         return { ...f, q: qInput.trim() || undefined };
       });
@@ -126,6 +130,56 @@ export function DirectoryExplorer({
     sort: filters.sort,
   });
   const result = live ?? (filtersEqual(filters, initialFilters) ? initial : undefined);
+  const itemCount = result?.items.length ?? 0;
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel || itemCount <= PAGE_SIZE) return;
+
+    let isNearSentinel = false;
+    let mustLeaveBeforeReveal = blockInitialRevealRef.current;
+    const updateProximity = (isNear: boolean) => {
+      if (!isNear) {
+        isNearSentinel = false;
+        mustLeaveBeforeReveal = false;
+        blockInitialRevealRef.current = false;
+        return;
+      }
+      if (mustLeaveBeforeReveal || isNearSentinel) return;
+
+      isNearSentinel = true;
+      setVisible((current) =>
+        current >= itemCount
+          ? current
+          : Math.min(current + PAGE_SIZE, itemCount),
+      );
+    };
+    const checkPosition = () => {
+      updateProximity(
+        sentinel.getBoundingClientRect().top <= window.innerHeight + 300,
+      );
+    };
+
+    if (typeof IntersectionObserver !== "undefined") {
+      const observer = new IntersectionObserver(
+        ([entry]) => updateProximity(Boolean(entry?.isIntersecting)),
+        { rootMargin: "300px 0px", threshold: 0 },
+      );
+      observer.observe(sentinel);
+
+      return () => observer.disconnect();
+    }
+
+    const frame = window.requestAnimationFrame(checkPosition);
+    window.addEventListener("scroll", checkPosition, { passive: true });
+    window.addEventListener("resize", checkPosition);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", checkPosition);
+      window.removeEventListener("resize", checkPosition);
+    };
+  }, [filters, itemCount]);
 
   const hasActiveFilters = useMemo(
     () => !filtersEqual(filters, {}),
@@ -133,6 +187,7 @@ export function DirectoryExplorer({
   );
 
   function update(patch: Partial<DirectoryFilters>) {
+    blockInitialRevealRef.current = true;
     setVisible(PAGE_SIZE);
     setFilters((f) => ({ ...f, ...patch }));
   }
@@ -271,6 +326,7 @@ export function DirectoryExplorer({
               size="sm"
               onClick={() => {
                 setQInput("");
+                blockInitialRevealRef.current = true;
                 setVisible(PAGE_SIZE);
                 setFilters({});
               }}
@@ -282,7 +338,7 @@ export function DirectoryExplorer({
         </fieldset>
       </div>
 
-      <p aria-live="polite" className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         {result ? t(strings.resultsCount, { count: result.total }) : "…"}
       </p>
 
@@ -291,7 +347,7 @@ export function DirectoryExplorer({
           <EmptyState title={strings.empty.title} text={strings.empty.text} />
         ) : (
           <>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <CompanyCardGrid>
               {result.items.slice(0, visible).map((card) => (
                 <CompanyCard
                   key={card.id}
@@ -300,29 +356,36 @@ export function DirectoryExplorer({
                   strings={strings.card}
                 />
               ))}
-            </div>
+            </CompanyCardGrid>
+            <p className="sr-only" aria-live="polite" aria-atomic="true">
+              {t(strings.visibleCount, {
+                visible: Math.min(visible, result.items.length),
+                total: result.total,
+              })}
+            </p>
             {visible < result.items.length && (
-              <div className="flex justify-center">
-                <Button
-                  variant="outline"
-                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                >
-                  {strings.showMore}
-                </Button>
-              </div>
+              <div
+                ref={sentinelRef}
+                data-infinite-scroll-sentinel
+                aria-hidden="true"
+                className="h-px [overflow-anchor:none]"
+              />
             )}
           </>
         )
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <CompanyCardGrid>
           {Array.from({ length: 6 }, (_, i) => (
-            <div key={i} className="space-y-3">
-              <Skeleton className="aspect-[16/10] w-full rounded-xl" />
-              <Skeleton className="h-4 w-2/3" />
-              <Skeleton className="h-3 w-1/2" />
+            <div key={i} className="rounded-xl bg-card p-4 shadow-sm">
+              <Skeleton className="aspect-video w-full rounded-md" />
+              <div className="flex min-h-[210px] flex-col gap-3 px-1 pt-4 pb-1">
+                <Skeleton className="h-6 w-2/3" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="mt-auto h-4 w-2/5" />
+              </div>
             </div>
           ))}
-        </div>
+        </CompanyCardGrid>
       )}
     </div>
   );

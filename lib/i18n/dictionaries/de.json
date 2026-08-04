@@ -71,6 +71,21 @@
         "few": "Firmen",
         "many": "Firmen"
       },
+      "shortNames": {
+        "gradjevinarstvo": "Bauwesen",
+        "nekretnine": "Immobilien",
+        "servisi": "Handwerk & Hausservice",
+        "auto": "Auto",
+        "prevoz": "Transport",
+        "proizvodnja": "Produktion",
+        "trgovina": "Handel",
+        "zdravlje": "Gesundheit",
+        "nega": "Beauty & Pflege",
+        "strucne-usluge": "Fachdienstleistungen",
+        "turizam": "Tourismus",
+        "ugostiteljstvo": "Gastronomie",
+        "kultura": "Kultur & Kunst"
+      },
       "viewAllTile": "Alle Firmen anzeigen"
     },
     "newest": {
@@ -132,6 +147,7 @@
       "newest": "Neueste"
     },
     "resultsCount": "{count} Ergebnisse",
+    "visibleCount": "{visible} von {total} Firmen angezeigt",
     "empty": {
       "title": "Keine Ergebnisse",
       "text": "Versuchen Sie einen anderen Begriff oder entfernen Sie einen Filter."
@@ -208,19 +224,63 @@
   },
   "contact": {
     "title": "Kontakt",
-    "lead": "Schreiben Sie uns — wir antworten so schnell wie möglich.",
+    "eyebrow": "Direkte Verbindung",
+    "headline": "Hier beginnt das Gespräch.",
+    "lead": "Ob Firmeneintrag, Carigradski-Drum-Karte oder eine Idee für eine Zusammenarbeit — sagen Sie uns, was Sie brauchen, und wir führen Sie zum nächsten Schritt.",
+    "routeFrom": "Wien",
+    "routeTo": "Belgrad",
+    "detailsTitle": "Direkt erreichen",
+    "officeLabel": "Carigradski-Drum-Team",
+    "responseTitle": "Eine klare Antwort",
+    "responseText": "Wir lesen Nachrichten an Werktagen und antworten in der Regel innerhalb von ein bis zwei Werktagen.",
+    "emailLabel": "E-Mail",
+    "phoneLabel": "Telefon",
+    "addressLabel": "Adresse",
+    "mapAction": "Karte öffnen",
+    "partnerEyebrow": "Lokaler Partner",
+    "partnerText": "Für Fragen und Unterstützung im Raum Novi Sad können Sie sich auch an unseren Partner wenden.",
     "form": {
+      "eyebrow": "Nachricht senden",
+      "title": "Wie können wir helfen?",
+      "lead": "Wählen Sie ein Thema, damit Ihre Nachricht direkt an der richtigen Stelle ankommt.",
+      "topicLabel": "Thema der Nachricht",
+      "topics": {
+        "company": "Firmeneintrag oder Profil",
+        "card": "Carigradski-Drum-Karte",
+        "partnership": "Partnerschaft",
+        "support": "Support",
+        "other": "Etwas anderes"
+      },
       "name": "Ihr Name",
       "email": "Ihre E-Mail",
+      "phone": "Telefon",
+      "optional": "optional",
       "message": "Nachricht",
+      "messagePlaceholder": "Beschreiben Sie kurz Ihr Anliegen, damit wir konkret antworten können…",
+      "requiredNote": "Alle Felder außer Telefon sind Pflichtfelder.",
       "submit": "Nachricht senden",
-      "success": "Ihre Nachricht wurde gesendet. Danke!",
-      "errorGeneric": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+      "sending": "Nachricht wird gesendet…",
+      "successTitle": "Ihre Nachricht ist unterwegs.",
+      "success": "Danke für Ihre Nachricht. Wir haben Ihnen eine Bestätigung per E-Mail gesendet und antworten innerhalb von ein bis zwei Werktagen.",
+      "sendAnother": "Weitere Nachricht senden",
+      "errorInvalid": "Bitte prüfen Sie Ihre Angaben. Die Nachricht muss mindestens 20 Zeichen enthalten.",
+      "errorRateLimit": "Von dieser Adresse sind mehrere Nachrichten eingegangen. Versuchen Sie es morgen erneut oder kontaktieren Sie uns direkt.",
+      "errorGeneric": "Die Nachricht konnte gerade nicht gesendet werden. Versuchen Sie es erneut oder schreiben Sie uns direkt per E-Mail.",
+      "privacyPrefix": "Mit dem Absenden stimmen Sie zu, dass wir Ihre Daten ausschließlich zur Beantwortung dieser Anfrage verwenden.",
+      "privacyLink": "Datenschutzhinweise lesen"
     }
   },
   "addCompany": {
+    "eyebrow": "Der sichere Weg zum neuen Profil",
     "title": "Tragen Sie Ihre Firma ein",
     "lead": "Präsentieren Sie Ihre Firma tausenden potenziellen Kunden in Österreich, Serbien und der Region.",
+    "startAction": "Eintragung starten",
+    "processTitle": "Was Ihnen der Eintrag im Verzeichnis bringt",
+    "trustPoints": [
+      "Jede Eintragung wird von unserem Team persönlich geprüft",
+      "Ihr Fortschritt wird automatisch in diesem Browser gespeichert",
+      "Die Kontaktdaten der eintragenden Person bleiben privat"
+    ],
     "benefits": [
       {
         "title": "Sichtbarkeit auf zwei Märkten",
@@ -235,14 +295,19 @@
         "text": "Als Rabatt-Partner erhalten Sie eine besondere Kennzeichnung und einen Platz auf der Kartenseite."
       }
     ],
+    "helpEyebrow": "Persönliche Unterstützung",
     "helpTitle": "Lieber, dass wir das übernehmen?",
     "helpText": "Wenn es Ihnen leichter fällt, füllen wir die Eintragung für Sie aus. Melden Sie sich — wir nehmen die Daten telefonisch oder per E-Mail auf.",
+    "emailAction": "E-Mail senden",
     "contactPrompt": "Erreichen Sie uns unter",
     "form": {
       "title": "Firma eintragen",
       "lead": "Das Ausfüllen dauert etwa fünf Minuten. Wir prüfen die Eintragung und veröffentlichen sie innerhalb von zwei Werktagen.",
       "stepLabel": "Schritt {current} von {total}",
       "progressLabel": "Fortschritt der Eintragung",
+      "assuranceTitle": "Sicher, Schritt für Schritt",
+      "assuranceReview": "Wir veröffentlichen nichts, bevor unser Team die Eintragung persönlich geprüft hat.",
+      "assuranceDraft": "Ihre Eingaben bleiben in diesem Browser gespeichert, damit Sie später fortfahren können.",
       "optionalStep": "Diesen Schritt können Sie überspringen.",
       "optional": "optional",
       "next": "Weiter",

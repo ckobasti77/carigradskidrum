@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -11,7 +12,12 @@ import { pageAlternates } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { HomeHero } from "@/components/site/home-hero";
 import { CategoryIcon } from "@/components/site/category-icon";
-import { HomeCompanyCard } from "@/components/site/home-company-card";
+import { CompanyCard } from "@/components/site/company-card";
+import { CompanyCardGrid } from "@/components/site/company-card-grid";
+import {
+  CATEGORY_IMAGE_BY_SLUG,
+  type CategoryImageSlug,
+} from "@/lib/category-images";
 
 export const revalidate = 600;
 
@@ -86,38 +92,63 @@ export default async function HomePage({
           {dict.home.categories.subtitle}
         </p>
 
-        <ul className="mt-9 grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))]">
-          {facets.categories.map((category, index) => (
-            <li key={category.slug}>
-              <Link
-                href={localePath(locale, `/kategorija/${category.slug}`)}
-                className="flex h-full items-center gap-4 rounded-lg bg-neutral-100 px-5 py-4.5 transition-colors hover:bg-terracotta-100"
-              >
-                <span
-                  className={`grid size-13 shrink-0 place-items-center rounded-full ${tone(index).bg} ${tone(index).text}`}
-                >
-                  <CategoryIcon
-                    name={category.icon}
-                    className="size-6.5"
-                    strokeWidth={2.75}
-                  />
-                </span>
-                <span>
-                  <strong className="block text-base leading-snug font-bold">
-                    {category.name}
-                  </strong>
-                  <span className="text-xs text-neutral-700">
-                    {pluralize(locale, category.count, dict.home.categories.companies)}
-                  </span>
-                </span>
-              </Link>
-            </li>
-          ))}
+        <ul className="mt-9 grid auto-rows-fr grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {facets.categories.map((category, index) => {
+            const imageSrc =
+              CATEGORY_IMAGE_BY_SLUG[category.slug as CategoryImageSlug];
+            const shortName =
+              dict.home.categories.shortNames[
+                category.slug as keyof typeof dict.home.categories.shortNames
+              ] ?? category.name;
 
-          <li>
+            return (
+              <li key={category.slug} className="h-full">
+                <Link
+                  href={localePath(locale, `/kategorija/${category.slug}`)}
+                  className="group flex h-full flex-col overflow-hidden rounded-lg bg-neutral-100 transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  <span className="relative block aspect-video w-full overflow-hidden bg-neutral-200">
+                    <Image
+                      src={imageSrc}
+                      alt=""
+                      fill
+                      loading="lazy"
+                      sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
+                      className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.025] motion-reduce:transform-none"
+                    />
+                  </span>
+                  <span className="flex flex-1 flex-col items-start gap-2.5 p-3 sm:flex-row sm:items-center sm:gap-3 sm:p-4">
+                    <span
+                      className={`grid size-10 shrink-0 place-items-center rounded-full sm:size-12 ${tone(index).bg} ${tone(index).text}`}
+                    >
+                      <CategoryIcon
+                        name={category.icon}
+                        className="size-5.5 sm:size-6"
+                        strokeWidth={2.75}
+                      />
+                    </span>
+                    <span className="min-w-0">
+                      <strong className="line-clamp-3 block text-[13px] leading-snug font-bold [overflow-wrap:anywhere] min-[360px]:text-sm sm:text-base">
+                        {shortName}
+                      </strong>
+                      <span className="mt-1 block text-xs text-neutral-700">
+                        {pluralize(
+                          locale,
+                          category.count,
+                          dict.home.categories.companies,
+                        )}
+                      </span>
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+
+          <li className="h-full">
             <Link
               href={localePath(locale, "/firme")}
-              className="flex h-full items-center justify-center gap-2.5 rounded-lg border-2 border-terracotta-300 px-5 py-4.5 text-base font-bold text-terracotta-700 transition-colors hover:bg-terracotta-100"
+              className="flex h-full items-center justify-center gap-2.5 rounded-lg border-2 border-terracotta-300 px-3 py-5 text-center text-sm font-bold text-terracotta-700 transition-colors hover:bg-terracotta-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-5 sm:text-base"
             >
               {dict.home.categories.viewAllTile}
               <ArrowRight className="size-5.5" strokeWidth={2.75} aria-hidden="true" />
@@ -167,17 +198,16 @@ export default async function HomePage({
             </Link>
           </div>
 
-          <div className="mt-9 grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))]">
-            {newest.items.map((card, index) => (
-              <HomeCompanyCard
+          <CompanyCardGrid className="mt-9 gap-5">
+            {newest.items.map((card) => (
+              <CompanyCard
                 key={card.id}
                 locale={locale}
                 card={card}
-                index={index}
                 strings={cardStrings}
               />
             ))}
-          </div>
+          </CompanyCardGrid>
         </section>
       )}
 

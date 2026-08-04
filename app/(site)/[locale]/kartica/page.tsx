@@ -7,6 +7,7 @@ import { getDiscountPartners } from "@/lib/data";
 import { pageAlternates } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { CompanyCard } from "@/components/site/company-card";
+import { CompanyCardGrid } from "@/components/site/company-card-grid";
 import { RouteLine } from "@/components/site/route-line";
 
 export const revalidate = 600;
@@ -87,7 +88,7 @@ export default async function CardPage({
           {partners.length === 0 ? (
             <p className="mt-4 text-muted-foreground">{dict.card.partnersEmpty}</p>
           ) : (
-            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <CompanyCardGrid className="mt-6">
               {partners.map((card) => (
                 <CompanyCard
                   key={card.id}
@@ -99,7 +100,7 @@ export default async function CardPage({
                   }}
                 />
               ))}
-            </div>
+            </CompanyCardGrid>
           )}
         </div>
       </section>

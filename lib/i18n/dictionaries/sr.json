@@ -68,6 +68,21 @@
         "few": "firme",
         "many": "firmi"
       },
+      "shortNames": {
+        "gradjevinarstvo": "Građevinarstvo",
+        "nekretnine": "Nekretnine",
+        "servisi": "Kućni servisi",
+        "auto": "Auto",
+        "prevoz": "Prevoz",
+        "proizvodnja": "Proizvodnja",
+        "trgovina": "Trgovina",
+        "zdravlje": "Zdravlje",
+        "nega": "Nega i lepota",
+        "strucne-usluge": "Stručne usluge",
+        "turizam": "Turizam",
+        "ugostiteljstvo": "Ugostiteljstvo",
+        "kultura": "Kultura i umetnost"
+      },
       "viewAllTile": "Prikaži sve firme"
     },
     "newest": {
@@ -129,6 +144,7 @@
       "newest": "Najnovije"
     },
     "resultsCount": "{count} rezultata",
+    "visibleCount": "Prikazano {visible} od {total} firmi",
     "empty": {
       "title": "Nema rezultata",
       "text": "Pokušajte sa drugim pojmom ili uklonite neki od filtera."
@@ -205,19 +221,63 @@
   },
   "contact": {
     "title": "Kontakt",
-    "lead": "Pišite nam — odgovaramo u najkraćem roku.",
+    "eyebrow": "Otvorena linija",
+    "headline": "Razgovor počinje ovde.",
+    "lead": "Bilo da upisujete firmu, tražite karticu ili imate ideju za saradnju — recite nam šta vam je potrebno, a mi ćemo vas usmeriti dalje.",
+    "routeFrom": "Beč",
+    "routeTo": "Beograd",
+    "detailsTitle": "Javite nam se direktno",
+    "officeLabel": "Carigradski Drum tim",
+    "responseTitle": "Odgovor bez lutanja",
+    "responseText": "Poruke pregledamo radnim danima i obično odgovaramo u roku od 1–2 radna dana.",
+    "emailLabel": "Email",
+    "phoneLabel": "Telefon",
+    "addressLabel": "Adresa",
+    "mapAction": "Otvori mapu",
+    "partnerEyebrow": "Lokalni partner",
+    "partnerText": "Za pitanja i podršku na području Novog Sada možete se javiti i našem partneru.",
     "form": {
+      "eyebrow": "Pošaljite poruku",
+      "title": "Kako možemo da pomognemo?",
+      "lead": "Izaberite temu da poruka odmah stigne na pravo mesto.",
+      "topicLabel": "Tema poruke",
+      "topics": {
+        "company": "Upis ili profil firme",
+        "card": "Carigradski Drum kartica",
+        "partnership": "Partnerstvo",
+        "support": "Podrška",
+        "other": "Nešto drugo"
+      },
       "name": "Vaše ime",
       "email": "Vaš email",
+      "phone": "Telefon",
+      "optional": "opciono",
       "message": "Poruka",
+      "messagePlaceholder": "Napišite nekoliko detalja kako bismo vam odgovorili konkretno…",
+      "requiredNote": "Sva polja osim telefona su obavezna.",
       "submit": "Pošalji poruku",
-      "success": "Poruka je poslata. Hvala!",
-      "errorGeneric": "Došlo je do greške. Pokušajte ponovo."
+      "sending": "Šaljem poruku…",
+      "successTitle": "Poruka je na putu.",
+      "success": "Hvala što ste nam se javili. Poslali smo potvrdu na vaš email i odgovorićemo u roku od 1–2 radna dana.",
+      "sendAnother": "Pošalji još jednu poruku",
+      "errorInvalid": "Proverite unesene podatke. Poruka treba da ima najmanje 20 znakova.",
+      "errorRateLimit": "Primili smo više poruka sa ove adrese. Pokušajte ponovo sutra ili nam se javite direktno.",
+      "errorGeneric": "Poruka trenutno nije poslata. Pokušajte ponovo ili nam pišite direktno na email.",
+      "privacyPrefix": "Slanjem prihvatate da vaše podatke koristimo samo za odgovor na ovaj upit.",
+      "privacyLink": "Pročitajte pravila privatnosti"
     }
   },
   "addCompany": {
+    "eyebrow": "Siguran put do novog profila",
     "title": "Dodajte svoju firmu",
     "lead": "Predstavite svoju firmu hiljadama potencijalnih klijenata u Austriji, Srbiji i regionu.",
+    "startAction": "Započni prijavu",
+    "processTitle": "Šta dobijate ulaskom u direktorijum",
+    "trustPoints": [
+      "Svaku prijavu ručno proverava naš tim",
+      "Napredak se automatski čuva u ovom pregledaču",
+      "Podaci osobe koja prijavljuje firmu ostaju privatni"
+    ],
     "benefits": [
       {
         "title": "Vidljivost na dva tržišta",
@@ -232,14 +292,19 @@
         "text": "Kao partner sa popustom dobijate posebnu oznaku i mesto na stranici kartice."
       }
     ],
+    "helpEyebrow": "Ljudska podrška",
     "helpTitle": "Radije biste da mi to odradimo?",
     "helpText": "Ako vam je lakše, popunićemo prijavu umesto vas. Javite nam se i uzećemo podatke telefonom ili mejlom.",
+    "emailAction": "Pošaljite email",
     "contactPrompt": "Javite nam se na",
     "form": {
       "title": "Prijava firme",
       "lead": "Popunjavanje traje oko pet minuta. Prijavu proveravamo i objavljujemo u roku od dva radna dana.",
       "stepLabel": "Korak {current} od {total}",
       "progressLabel": "Napredak prijave",
+      "assuranceTitle": "Sigurno, korak po korak",
+      "assuranceReview": "Ništa ne objavljujemo pre nego što naš tim ručno proveri prijavu.",
+      "assuranceDraft": "Unos se čuva u ovom pregledaču, pa možete da nastavite kasnije.",
       "optionalStep": "Ovaj korak možete preskočiti.",
       "optional": "opciono",
       "next": "Dalje",

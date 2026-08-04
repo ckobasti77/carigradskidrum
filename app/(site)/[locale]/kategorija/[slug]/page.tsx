@@ -9,6 +9,7 @@ import { pageAlternates } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { CategoryIcon } from "@/components/site/category-icon";
 import { CompanyCard } from "@/components/site/company-card";
+import { CompanyCardGrid } from "@/components/site/company-card-grid";
 import { EmptyState } from "@/components/site/empty-state";
 
 export const revalidate = 600;
@@ -95,7 +96,7 @@ export default async function CategoryPage({
         />
       ) : (
         <>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <CompanyCardGrid>
             {result.items.map((card) => (
               <CompanyCard
                 key={card.id}
@@ -107,7 +108,7 @@ export default async function CategoryPage({
                 }}
               />
             ))}
-          </div>
+          </CompanyCardGrid>
           <div className="mt-8">
             <Button asChild variant="outline">
               <Link

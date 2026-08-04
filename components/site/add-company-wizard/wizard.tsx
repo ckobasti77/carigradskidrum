@@ -3,8 +3,27 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import Link from "next/link";
 import { useMutation, useQuery } from "convex/react";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight, CheckCircle2, Info, Plus, Send, Trash2 } from "lucide-react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useReducedMotion } from "framer-motion";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Building2,
+  Check,
+  CheckCircle2,
+  ClipboardCheck,
+  ContactRound,
+  Images,
+  Info,
+  MapPin,
+  Plus,
+  Save,
+  Send,
+  ShieldCheck,
+  Trash2,
+  UserRound,
+} from "lucide-react";
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 import { COUNTRY_CODES, UPLOAD_MAX_BYTES } from "@/convex/lib/constants";
@@ -15,7 +34,6 @@ import {
   type FieldErrors,
 } from "@/convex/lib/companyInput";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { CategoryIcon } from "@/components/site/category-icon";
 import { t } from "@/lib/i18n/format";
 import { localePath, type Locale } from "@/lib/i18n/config";
@@ -44,6 +62,16 @@ import {
 
 const DRAFT_KEY = "cd:add-company-draft:v1";
 const DUPLICATE_DEBOUNCE_MS = 400;
+const STEP_ICONS = [
+  Building2,
+  MapPin,
+  ContactRound,
+  Images,
+  UserRound,
+  ClipboardCheck,
+];
+
+gsap.registerPlugin(useGSAP);
 
 type Status = "editing" | "uploading" | "sending" | "success";
 
@@ -139,12 +167,35 @@ export function AddCompanyWizard({
 
   const headingRef = useRef<HTMLHeadingElement>(null);
   const focusFieldRef = useRef<string | null>(null);
+  const wizardRef = useRef<HTMLDivElement>(null);
+  const stepPanelRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
   const generateUploadUrl = useMutation(api.submissions.generateUploadUrl);
   const submitSubmission = useMutation(api.submissions.submit);
 
   const step = STEP_KEYS[stepIndex];
+
+  useGSAP(
+    () => {
+      const panel = stepPanelRef.current;
+      if (!panel || shouldReduceMotion) return;
+
+      gsap.fromTo(
+        panel,
+        { autoAlpha: 0, x: 16, y: 4 },
+        {
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          duration: 0.32,
+          ease: "power2.out",
+          clearProps: "transform,opacity,visibility",
+        },
+      );
+    },
+    { scope: wizardRef, dependencies: [stepIndex, shouldReduceMotion] },
+  );
 
   /**
    * Editing a field clears its error immediately instead of nagging on every
@@ -562,26 +613,34 @@ export function AddCompanyWizard({
     return (
       <div
         role="status"
-        className="rounded-xl border border-border bg-sage-100 p-6 md:p-8"
+        className="relative overflow-hidden rounded-2xl border border-sage-300 bg-sage-100 p-7 shadow-lg md:p-10"
       >
-        <CheckCircle2 className="size-7 text-primary" aria-hidden="true" />
-        <h2 className="mt-3 text-2xl">{strings.success.title}</h2>
-        <p className="mt-2 max-w-xl text-muted-foreground">
-          {t(strings.success.text, { email: state.submitterEmail })}
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Button asChild>
-            <Link href={strings.backHomeHref}>{strings.backHome}</Link>
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => {
-              discardDraft();
-              setStatus("editing");
-            }}
-          >
-            {strings.success.addAnother}
-          </Button>
+        <div
+          className="absolute -right-20 -bottom-28 size-80 rounded-full border-[3.5rem] border-sage-200"
+          aria-hidden="true"
+        />
+        <div className="relative z-10">
+          <span className="grid size-14 place-items-center rounded-full bg-sage-800 text-sage-100 shadow-md">
+            <CheckCircle2 className="size-7" aria-hidden="true" />
+          </span>
+          <h2 className="mt-5 text-3xl">{strings.success.title}</h2>
+          <p className="mt-3 max-w-xl text-muted-foreground">
+            {t(strings.success.text, { email: state.submitterEmail })}
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Button asChild>
+              <Link href={strings.backHomeHref}>{strings.backHome}</Link>
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                discardDraft();
+                setStatus("editing");
+              }}
+            >
+              {strings.success.addAnother}
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -589,216 +648,300 @@ export function AddCompanyWizard({
 
   const busy = status === "uploading" || status === "sending";
   const progress = ((stepIndex + 1) / STEP_KEYS.length) * 100;
+  const pathProgress = (stepIndex / (STEP_KEYS.length - 1)) * 100;
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5 md:p-8">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-2xl">{strings.title}</h2>
-        <p className="text-sm text-muted-foreground">
-          {t(strings.stepLabel, {
-            current: stepIndex + 1,
-            total: STEP_KEYS.length,
-          })}
-        </p>
-      </div>
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-        {strings.lead}
-      </p>
-
-      <div
-        className="mt-5 h-1.5 w-full overflow-hidden rounded-full bg-muted"
-        role="progressbar"
-        aria-label={strings.progressLabel}
-        aria-valuemin={1}
-        aria-valuemax={STEP_KEYS.length}
-        aria-valuenow={stepIndex + 1}
-      >
+    <div
+      ref={wizardRef}
+      data-testid="add-company-wizard"
+      className="grid items-start gap-5 lg:grid-cols-[19rem_minmax(0,1fr)] lg:gap-7"
+    >
+      <aside className="relative overflow-hidden rounded-2xl border border-sage-700 bg-sage-800 p-5 text-cream shadow-lg lg:sticky lg:top-28 lg:p-6">
         <div
-          className="h-full rounded-full bg-primary transition-[width] duration-300 motion-reduce:transition-none"
-          style={{ width: `${progress}%` }}
+          className="absolute -top-20 -right-20 size-56 rounded-full border-[2.75rem] border-sage-700/75"
+          aria-hidden="true"
         />
-      </div>
+        <div className="relative z-10">
+          <p className="text-xs font-medium tracking-wide text-sage-200 uppercase">
+            {t(strings.stepLabel, {
+              current: stepIndex + 1,
+              total: STEP_KEYS.length,
+            })}
+          </p>
+          <h2 className="mt-3 text-3xl text-cream">{strings.title}</h2>
+          <p className="mt-3 text-sm leading-relaxed text-sage-100/85">
+            {strings.lead}
+          </p>
 
-      <ol className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-        {STEP_KEYS.map((key, index) => (
-          <li key={key}>
+          <div
+            className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-sage-700 lg:hidden"
+            role="progressbar"
+            aria-label={strings.progressLabel}
+            aria-valuemin={1}
+            aria-valuemax={STEP_KEYS.length}
+            aria-valuenow={stepIndex + 1}
+          >
+            <div
+              className="h-full origin-left rounded-full bg-terracotta-400 transition-[width] duration-300 motion-reduce:transition-none"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          <nav aria-label={strings.progressLabel} className="mt-4 lg:mt-8">
+            <div className="relative">
+              <span
+                className="absolute top-6 bottom-6 left-[1.375rem] hidden w-px bg-sage-600 lg:block"
+                aria-hidden="true"
+              >
+                <span
+                  className="block w-full bg-terracotta-400 transition-[height] duration-300 motion-reduce:transition-none"
+                  style={{ height: `${pathProgress}%` }}
+                />
+              </span>
+              <ol className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:block lg:space-y-2 lg:overflow-visible lg:pb-0">
+                {STEP_KEYS.map((key, index) => {
+                  const Icon = STEP_ICONS[index] ?? Building2;
+                  const active = index === stepIndex;
+                  const complete = index < stepIndex;
+                  return (
+                    <li key={key} className="shrink-0 lg:relative">
+                      <button
+                        type="button"
+                        onClick={() => goToStep(index)}
+                        disabled={busy}
+                        className={cn(
+                          "group flex min-h-11 items-center gap-2.5 rounded-full border px-3 py-2 text-left text-xs transition-[background-color,border-color,color,transform] hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:w-full lg:rounded-lg lg:border-transparent lg:px-0 lg:py-2 lg:hover:translate-y-0",
+                          active
+                            ? "border-terracotta-300 bg-terracotta-100 text-terracotta-900 lg:bg-transparent lg:text-cream"
+                            : "border-sage-600 bg-sage-700/45 text-sage-100 hover:bg-sage-700 lg:bg-transparent lg:hover:bg-sage-700/55",
+                        )}
+                        aria-current={active ? "step" : undefined}
+                      >
+                        <span
+                          className={cn(
+                            "relative z-10 grid size-8 shrink-0 place-items-center rounded-full border transition-colors",
+                            active && "border-terracotta-400 bg-terracotta-400 text-sage-900",
+                            complete && "border-sage-200 bg-sage-200 text-sage-900",
+                            !active && !complete && "border-sage-500 bg-sage-800 text-sage-200",
+                          )}
+                        >
+                          {complete ? (
+                            <Check className="size-4" aria-hidden="true" />
+                          ) : (
+                            <Icon className="size-4" aria-hidden="true" />
+                          )}
+                        </span>
+                        <span className="pr-1 whitespace-nowrap">
+                          {strings.steps[key]}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          </nav>
+
+          <div className="mt-6 hidden border-t border-sage-600 pt-6 lg:block">
+            <h3 className="text-lg text-cream">{strings.assuranceTitle}</h3>
+            <div className="mt-4 space-y-4 text-xs leading-relaxed text-sage-100/85">
+              <p className="flex gap-3">
+                <ShieldCheck className="mt-0.5 size-4 shrink-0 text-terracotta-300" aria-hidden="true" />
+                <span>{strings.assuranceReview}</span>
+              </p>
+              <p className="flex gap-3">
+                <Save className="mt-0.5 size-4 shrink-0 text-terracotta-300" aria-hidden="true" />
+                <span>{strings.assuranceDraft}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div className="min-w-0 overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+        <div className="p-5 md:p-8 lg:p-10">
+          {state.restoredFromDraft ? (
+            <div className="mb-7 flex flex-wrap items-center gap-3 rounded-lg border border-sage-300 bg-sage-100 p-4 text-sm">
+              <Info className="size-5 shrink-0 text-sage-800" aria-hidden="true" />
+              <span className="text-neutral-800">{strings.restoredDraft}</span>
+              <button
+                type="button"
+                onClick={discardDraft}
+                className="font-medium text-terracotta-800 underline underline-offset-4 hover:text-terracotta-900"
+              >
+                {strings.discardDraft}
+              </button>
+            </div>
+          ) : null}
+
+          <div ref={stepPanelRef} key={step} data-wizard-step={step}>
+            <div className="mb-7 border-b border-border pb-6">
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="text-xs font-medium tracking-wide text-terracotta-800 uppercase">
+                  {t(strings.stepLabel, {
+                    current: stepIndex + 1,
+                    total: STEP_KEYS.length,
+                  })}
+                </p>
+                {OPTIONAL_STEPS.has(step) ? (
+                  <span className="rounded-full bg-sage-100 px-3 py-1 text-xs text-sage-800">
+                    {strings.optional}
+                  </span>
+                ) : null}
+              </div>
+              <h3
+                ref={headingRef}
+                tabIndex={-1}
+                className="mt-3 text-3xl outline-none md:text-4xl"
+              >
+                {strings[step].title}
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                {strings[step].description}
+                {OPTIONAL_STEPS.has(step) ? ` ${strings.optionalStep}` : ""}
+              </p>
+            </div>
+
+            {step === "basics" ? (
+              <BasicsStep
+                state={state}
+                patch={patch}
+                categories={categories}
+                strings={strings}
+                errorMessage={errorMessage}
+                duplicates={duplicates ?? []}
+                locale={locale}
+              />
+            ) : null}
+
+            {step === "location" ? (
+              <LocationStep
+                state={state}
+                patch={patch}
+                strings={strings}
+                errorMessage={errorMessage}
+              />
+            ) : null}
+
+            {step === "contact" ? (
+              <ContactStep
+                state={state}
+                patch={patch}
+                strings={strings}
+                errorMessage={errorMessage}
+              />
+            ) : null}
+
+            {step === "offer" ? (
+              <OfferStep
+                state={state}
+                patch={patch}
+                images={images}
+                strings={strings}
+                errorMessage={errorMessage}
+                onPickSingle={handleSinglePick}
+                onPickGallery={handleGalleryPick}
+                onRemoveSingle={(kind) =>
+                  setImages((current) => {
+                    releaseImage(current[kind]);
+                    return { ...current, [kind]: null };
+                  })
+                }
+                onRemoveGallery={(index) =>
+                  setImages((current) => {
+                    releaseImage(current.gallery[index]);
+                    return {
+                      ...current,
+                      gallery: current.gallery.filter((_, i) => i !== index),
+                    };
+                  })
+                }
+              />
+            ) : null}
+
+            {step === "submitter" ? (
+              <SubmitterStep
+                state={state}
+                patch={patch}
+                strings={strings}
+                errorMessage={errorMessage}
+                locale={locale}
+                honeypot={honeypot}
+                setHoneypot={setHoneypot}
+              />
+            ) : null}
+
+            {step === "review" ? (
+              <ReviewStep
+                state={state}
+                images={images}
+                categories={categories}
+                strings={strings}
+                onEdit={goToStep}
+              />
+            ) : null}
+
+            {submitError ? (
+              <p
+                role="alert"
+                className="mt-6 rounded-md border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive"
+              >
+                {submitError}
+              </p>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3 border-t border-border bg-neutral-100/70 px-5 py-4 md:px-8 lg:px-10">
+          {stepIndex > 0 ? (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => goToStep(stepIndex - 1)}
+              disabled={busy}
+            >
+              <ArrowLeft className="size-4" aria-hidden="true" />
+              {strings.back}
+            </Button>
+          ) : null}
+
+          {OPTIONAL_STEPS.has(step) ? (
             <button
               type="button"
-              onClick={() => goToStep(index)}
+              onClick={() => goToStep(stepIndex + 1)}
               disabled={busy}
-              className={cn(
-                "rounded-full px-1 py-0.5 transition-colors",
-                index === stepIndex
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-              aria-current={index === stepIndex ? "step" : undefined}
+              className="text-sm text-muted-foreground underline underline-offset-4 hover:text-primary"
             >
-              {index + 1}. {strings.steps[key]}
+              {strings.skip}
             </button>
-          </li>
-        ))}
-      </ol>
+          ) : null}
 
-      {state.restoredFromDraft ? (
-        <div className="mt-5 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background p-3 text-sm">
-          <Info className="size-4 shrink-0 text-primary" aria-hidden="true" />
-          <span className="text-muted-foreground">{strings.restoredDraft}</span>
-          <button
-            type="button"
-            onClick={discardDraft}
-            className="underline underline-offset-2 hover:text-primary"
-          >
-            {strings.discardDraft}
-          </button>
+          {step === "review" ? (
+            <Button
+              type="button"
+              className="ml-auto shadow-sm"
+              onClick={handleSubmit}
+              disabled={busy}
+            >
+              <Send className="size-4" aria-hidden="true" />
+              {status === "uploading"
+                ? strings.uploading
+                : status === "sending"
+                  ? strings.submitting
+                  : strings.submit}
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              className="ml-auto shadow-sm"
+              onClick={handleNext}
+              disabled={busy}
+            >
+              {strings.next}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Button>
+          )}
         </div>
-      ) : null}
-
-      <Separator className="my-6" />
-
-      <motion.div
-        key={step}
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
-      >
-        <h3
-          ref={headingRef}
-          tabIndex={-1}
-          className="text-xl outline-none"
-        >
-          {strings[step].title}
-        </h3>
-        <p className="mt-1 mb-5 text-sm text-muted-foreground">
-          {strings[step].description}
-          {OPTIONAL_STEPS.has(step) ? ` ${strings.optionalStep}` : ""}
-        </p>
-
-        {step === "basics" ? (
-          <BasicsStep
-            state={state}
-            patch={patch}
-            categories={categories}
-            strings={strings}
-            errorMessage={errorMessage}
-            duplicates={duplicates ?? []}
-            locale={locale}
-          />
-        ) : null}
-
-        {step === "location" ? (
-          <LocationStep
-            state={state}
-            patch={patch}
-            strings={strings}
-            errorMessage={errorMessage}
-          />
-        ) : null}
-
-        {step === "contact" ? (
-          <ContactStep
-            state={state}
-            patch={patch}
-            strings={strings}
-            errorMessage={errorMessage}
-          />
-        ) : null}
-
-        {step === "offer" ? (
-          <OfferStep
-            state={state}
-            patch={patch}
-            images={images}
-            strings={strings}
-            errorMessage={errorMessage}
-            onPickSingle={handleSinglePick}
-            onPickGallery={handleGalleryPick}
-            onRemoveSingle={(kind) =>
-              setImages((current) => {
-                releaseImage(current[kind]);
-                return { ...current, [kind]: null };
-              })
-            }
-            onRemoveGallery={(index) =>
-              setImages((current) => {
-                releaseImage(current.gallery[index]);
-                return {
-                  ...current,
-                  gallery: current.gallery.filter((_, i) => i !== index),
-                };
-              })
-            }
-          />
-        ) : null}
-
-        {step === "submitter" ? (
-          <SubmitterStep
-            state={state}
-            patch={patch}
-            strings={strings}
-            errorMessage={errorMessage}
-            locale={locale}
-            honeypot={honeypot}
-            setHoneypot={setHoneypot}
-          />
-        ) : null}
-
-        {step === "review" ? (
-          <ReviewStep
-            state={state}
-            images={images}
-            categories={categories}
-            strings={strings}
-            onEdit={goToStep}
-          />
-        ) : null}
-      </motion.div>
-
-      {submitError ? (
-        <p role="alert" className="mt-5 text-sm text-destructive">
-          {submitError}
-        </p>
-      ) : null}
-
-      <div className="mt-8 flex flex-wrap items-center gap-3">
-        {stepIndex > 0 ? (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => goToStep(stepIndex - 1)}
-            disabled={busy}
-          >
-            <ArrowLeft className="size-4" aria-hidden="true" />
-            {strings.back}
-          </Button>
-        ) : null}
-
-        {step === "review" ? (
-          <Button type="button" onClick={handleSubmit} disabled={busy}>
-            <Send className="size-4" aria-hidden="true" />
-            {status === "uploading"
-              ? strings.uploading
-              : status === "sending"
-                ? strings.submitting
-                : strings.submit}
-          </Button>
-        ) : (
-          <Button type="button" onClick={handleNext} disabled={busy}>
-            {strings.next}
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </Button>
-        )}
-
-        {OPTIONAL_STEPS.has(step) ? (
-          <button
-            type="button"
-            onClick={() => goToStep(stepIndex + 1)}
-            disabled={busy}
-            className="text-sm text-muted-foreground underline underline-offset-2 hover:text-primary"
-          >
-            {strings.skip}
-          </button>
-        ) : null}
       </div>
     </div>
   );
@@ -845,7 +988,7 @@ function BasicsStep({
       />
 
       {duplicates.length > 0 ? (
-        <div className="rounded-lg border border-terracotta-300 bg-terracotta-100 p-4 text-sm">
+        <div className="rounded-lg border border-terracotta-300 bg-terracotta-100 p-5 text-sm shadow-xs">
           <p className="font-medium">{strings.basics.duplicateWarning}</p>
           <ul className="mt-2 space-y-1">
             {duplicates.map((company) => (
@@ -868,24 +1011,24 @@ function BasicsStep({
         </div>
       ) : null}
 
-      <fieldset>
+      <fieldset className="rounded-lg border border-border bg-background p-4 shadow-xs md:p-5">
         <legend className="text-sm leading-none font-medium">
           {strings.basics.categories}
         </legend>
         <p className="mt-1.5 text-xs text-muted-foreground">
           {t(strings.basics.categoriesHint, { max: INPUT_LIMITS.maxCategories })}
         </p>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
           {categories.map((category) => {
             const checked = state.categorySlugs.includes(category.slug);
             return (
               <label
                 key={category.slug}
                 className={cn(
-                  "flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-sm transition-colors",
+                  "flex min-h-14 cursor-pointer items-center gap-3 rounded-md border p-3 text-sm shadow-xs transition-[background-color,border-color,transform] hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
                   checked
-                    ? "border-primary bg-accent"
-                    : "border-border bg-background hover:border-neutral-400",
+                    ? "border-terracotta-400 bg-terracotta-100"
+                    : "border-border bg-card hover:border-neutral-400",
                   !checked && atLimit && "cursor-not-allowed opacity-50",
                 )}
               >
@@ -1046,20 +1189,20 @@ function ContactStep({ state, patch, strings, errorMessage }: StepProps) {
         />
       </div>
 
-      <fieldset>
+      <fieldset className="rounded-lg border border-border bg-background p-4 shadow-xs md:p-5">
         <legend className="text-sm leading-none font-medium">
           {strings.contact.hoursTitle}
         </legend>
         <p className="mt-1.5 text-xs text-muted-foreground">
           {strings.contact.hoursHint}
         </p>
-        <ul className="mt-3 space-y-2">
+        <ul className="mt-4 space-y-2.5">
           {state.hours.map((row, day) => (
             <li
               key={day}
-              className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background p-3"
+              className="grid gap-3 rounded-md border border-border bg-card p-3 shadow-xs sm:grid-cols-[minmax(8rem,1fr)_auto] sm:items-center"
             >
-              <label className="flex min-w-40 cursor-pointer items-center gap-2.5 text-sm">
+              <label className="flex cursor-pointer items-center gap-2.5 text-sm">
                 <input
                   type="checkbox"
                   className="size-5 accent-primary"
@@ -1078,7 +1221,7 @@ function ContactStep({ state, patch, strings, errorMessage }: StepProps) {
               </label>
               <div
                 className={cn(
-                  "flex items-center gap-2 text-sm",
+                  "flex flex-wrap items-center gap-2 text-sm sm:justify-end",
                   !row.enabled && "opacity-40",
                 )}
               >
@@ -1099,7 +1242,7 @@ function ContactStep({ state, patch, strings, errorMessage }: StepProps) {
                       ),
                     })
                   }
-                  className="h-10 rounded-full border bg-card px-3 text-sm"
+                  className="h-11 rounded-full border bg-background px-3 text-sm shadow-xs"
                 />
                 <span className="text-muted-foreground">
                   {strings.contact.to}
@@ -1118,7 +1261,7 @@ function ContactStep({ state, patch, strings, errorMessage }: StepProps) {
                       ),
                     })
                   }
-                  className="h-10 rounded-full border bg-card px-3 text-sm"
+                  className="h-11 rounded-full border bg-background px-3 text-sm shadow-xs"
                 />
               </div>
             </li>
@@ -1196,7 +1339,7 @@ function OfferStep({
         onRemove={onRemoveGallery}
       />
 
-      <div>
+      <div className="rounded-lg border border-border bg-background p-4 shadow-xs md:p-5">
         <h4 className="text-base font-medium">{strings.offer.offeringsTitle}</h4>
         <p className="mt-1 text-xs text-muted-foreground">
           {strings.offer.offeringsHint}
@@ -1205,7 +1348,7 @@ function OfferStep({
           {state.offerings.map((offering, index) => (
             <li
               key={offering.id}
-              className="rounded-lg border border-border bg-background p-4"
+              className="rounded-md border border-border bg-card p-4 shadow-xs"
             >
               <div className="grid gap-4 sm:grid-cols-[9rem_1fr]">
                 <SelectField
@@ -1290,9 +1433,9 @@ function OfferStep({
         </Button>
       </div>
 
-      <div className="rounded-lg border border-border bg-background p-4">
+      <div className="rounded-lg border border-sage-300 bg-sage-100 p-4 shadow-xs md:p-5">
         <h4 className="text-base font-medium">{strings.offer.discountTitle}</h4>
-        <label className="mt-3 flex cursor-pointer items-center gap-2.5 text-sm">
+        <label className="mt-4 flex min-h-11 cursor-pointer items-center gap-2.5 rounded-md border border-sage-300 bg-card px-4 py-3 text-sm">
           <input
             type="checkbox"
             className="size-5 accent-primary"
@@ -1413,8 +1556,8 @@ function SubmitterStep({
         />
       </div>
 
-      <div>
-        <label className="flex cursor-pointer items-start gap-3 text-sm">
+      <div className="rounded-lg border border-sage-300 bg-sage-100 p-4 shadow-xs md:p-5">
+        <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
           <input
             id={fieldId("consent")}
             type="checkbox"
@@ -1552,7 +1695,7 @@ function ReviewStep({
       {sections.map((section) => (
         <section
           key={section.step}
-          className="rounded-lg border border-border bg-background p-4"
+          className="rounded-lg border border-border bg-background p-5 shadow-xs"
         >
           <div className="flex items-baseline justify-between gap-3">
             <h4 className="text-base font-medium">{section.title}</h4>

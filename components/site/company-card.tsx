@@ -24,15 +24,15 @@ export function CompanyCard({
   const countryLabel = strings.countryLabels[card.country] ?? card.country;
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl bg-card shadow-sm transition-shadow hover:shadow-md">
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-200">
+    <article className="group relative flex h-full flex-col rounded-xl bg-card p-4 shadow-sm transition-shadow hover:shadow-md focus-within:ring-2 focus-within:ring-terracotta-500 focus-within:ring-offset-2 focus-within:ring-offset-background">
+      <div className="relative aspect-video w-full overflow-hidden rounded-md bg-neutral-200">
         {card.coverUrl ? (
           <Image
             src={card.coverUrl}
             alt=""
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 1023px) 46vw, 360px"
+            className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.025] motion-reduce:transform-none"
           />
         ) : (
           <div
@@ -52,20 +52,25 @@ export function CompanyCard({
           </div>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1.5 p-5">
-        <h3 className="text-xl leading-snug">
-          <Link href={href} className="after:absolute after:inset-0">
+      <div className="flex min-h-[210px] flex-1 flex-col gap-2 px-1 pt-4 pb-1">
+        <h3 className="line-clamp-3 text-xl leading-snug">
+          <Link
+            href={href}
+            className="after:absolute after:inset-0 focus-visible:outline-none"
+          >
             {card.name}
           </Link>
         </h3>
         {card.categoryNames.length > 0 && (
-          <p className="text-sm text-neutral-700">
+          <p className="line-clamp-2 text-sm leading-5 text-neutral-700">
             {card.categoryNames.join(" · ")}
           </p>
         )}
-        <p className="mt-auto flex items-center gap-1.5 pt-1 text-sm font-semibold text-sage-700">
+        <p className="mt-auto flex items-start gap-1.5 pt-1 text-sm font-semibold text-terracotta-700">
           <MapPin className="size-4 shrink-0" aria-hidden="true" />
-          {card.city}, {countryLabel}
+          <span className="line-clamp-2">
+            {card.city}, {countryLabel}
+          </span>
         </p>
       </div>
     </article>

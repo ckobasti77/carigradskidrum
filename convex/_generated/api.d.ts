@@ -11,6 +11,8 @@
 import type * as admin from "../admin.js";
 import type * as categories from "../categories.js";
 import type * as companies from "../companies.js";
+import type * as contact from "../contact.js";
+import type * as coverBackfill from "../coverBackfill.js";
 import type * as crons from "../crons.js";
 import type * as directory from "../directory.js";
 import type * as email from "../email.js";
@@ -20,6 +22,7 @@ import type * as lib_cards from "../lib/cards.js";
 import type * as lib_companyInput from "../lib/companyInput.js";
 import type * as lib_companyWrite from "../lib/companyWrite.js";
 import type * as lib_constants from "../lib/constants.js";
+import type * as lib_contactInput from "../lib/contactInput.js";
 import type * as lib_entitlements from "../lib/entitlements.js";
 import type * as lib_env from "../lib/env.js";
 import type * as lib_fold from "../lib/fold.js";
@@ -41,6 +44,8 @@ declare const fullApi: ApiFromModules<{
   admin: typeof admin;
   categories: typeof categories;
   companies: typeof companies;
+  contact: typeof contact;
+  coverBackfill: typeof coverBackfill;
   crons: typeof crons;
   directory: typeof directory;
   email: typeof email;
@@ -50,6 +55,7 @@ declare const fullApi: ApiFromModules<{
   "lib/companyInput": typeof lib_companyInput;
   "lib/companyWrite": typeof lib_companyWrite;
   "lib/constants": typeof lib_constants;
+  "lib/contactInput": typeof lib_contactInput;
   "lib/entitlements": typeof lib_entitlements;
   "lib/env": typeof lib_env;
   "lib/fold": typeof lib_fold;

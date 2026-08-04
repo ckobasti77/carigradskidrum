@@ -1,7 +1,10 @@
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
-import { FALLBACK_INQUIRY_RECIPIENT } from "./lib/constants";
+import {
+  FALLBACK_CONTACT_RECIPIENT,
+  FALLBACK_INQUIRY_RECIPIENT,
+} from "./lib/constants";
 import { deploymentEnv } from "./lib/env";
 
 /**
@@ -105,6 +108,78 @@ export const sendInquiryRelay = internalAction({
       </div>`;
 
     await sendEmail({ to, subject, html, replyTo: inquiry.email });
+    return null;
+  },
+});
+
+/** Operator alert for the general contact page. */
+export const sendContactAlert = internalAction({
+  args: { contactMessageId: v.id("contactMessages") },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const data = await ctx.runQuery(internal.contact.getForNotification, {
+      contactMessageId: args.contactMessageId,
+    });
+    if (!data) return null;
+
+    const to = deploymentEnv.OPERATOR_EMAIL ?? FALLBACK_CONTACT_RECIPIENT;
+    const topicLabels = {
+      company: "Upis ili profil firme",
+      card: "Carigradski Drum kartica",
+      partnership: "Partnerstvo",
+      support: "Podrška",
+      other: "Drugo",
+    } as const;
+
+    const html = layout(`
+        <p>Stigla je nova poruka sa kontakt stranice.</p>
+        <table style="border-collapse:collapse;width:100%;font-size:14px">
+          <tr><td style="padding:6px 12px 6px 0;color:#8a7f74">Tema</td><td style="padding:6px 0">${topicLabels[data.topic]}</td></tr>
+          <tr><td style="padding:6px 12px 6px 0;color:#8a7f74">Ime</td><td style="padding:6px 0">${escapeHtml(data.name)}</td></tr>
+          <tr><td style="padding:6px 12px 6px 0;color:#8a7f74">Email</td><td style="padding:6px 0"><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
+          ${data.phone ? `<tr><td style="padding:6px 12px 6px 0;color:#8a7f74">Telefon</td><td style="padding:6px 0">${escapeHtml(data.phone)}</td></tr>` : ""}
+          <tr><td style="padding:6px 12px 6px 0;color:#8a7f74">Jezik</td><td style="padding:6px 0">${data.locale.toUpperCase()}</td></tr>
+        </table>
+        <p style="white-space:pre-wrap;background:#faf7f2;border:1px solid #eee3d5;border-radius:8px;padding:12px;font-size:14px">${escapeHtml(data.message)}</p>`);
+
+    await sendEmail({
+      to,
+      subject: `Kontakt forma — ${topicLabels[data.topic]} — ${data.name}`,
+      html,
+      replyTo: data.email,
+    });
+    return null;
+  },
+});
+
+/** Confirmation that the contact request was safely received. */
+export const sendContactReceipt = internalAction({
+  args: { contactMessageId: v.id("contactMessages") },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const data = await ctx.runQuery(internal.contact.getForNotification, {
+      contactMessageId: args.contactMessageId,
+    });
+    if (!data) return null;
+
+    const de = data.locale === "de";
+    const html = layout(
+      de
+        ? `<p>Hallo ${escapeHtml(data.name)},</p>
+           <p>Ihre Nachricht ist bei uns angekommen. Unser Team prüft Ihr Anliegen und antwortet in der Regel innerhalb von ein bis zwei Werktagen.</p>
+           <p>Sie müssen nichts weiter tun.</p>`
+        : `<p>Poštovani/a ${escapeHtml(data.name)},</p>
+           <p>vaša poruka je stigla do nas. Naš tim će pregledati upit i odgovoriti u roku od jednog do dva radna dana.</p>
+           <p>Ne morate ništa dalje da radite.</p>`,
+    );
+
+    await sendEmail({
+      to: data.email,
+      subject: de
+        ? "Ihre Nachricht ist angekommen — Carigradski Drum"
+        : "Primili smo vašu poruku — Carigradski Drum",
+      html,
+    });
     return null;
   },
 });

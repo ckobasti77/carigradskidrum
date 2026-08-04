@@ -112,6 +112,14 @@ export const submissionStatusValidator = v.union(
   v.literal("spam"),
 );
 
+export const contactTopicValidator = v.union(
+  v.literal("company"),
+  v.literal("card"),
+  v.literal("partnership"),
+  v.literal("support"),
+  v.literal("other"),
+);
+
 export const paymentMethodValidator = v.union(
   v.literal("bank"),
   v.literal("cash"),

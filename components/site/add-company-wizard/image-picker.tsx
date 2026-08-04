@@ -100,41 +100,49 @@ export function SingleImagePicker({
   const inputId = useId();
 
   return (
-    <div className="space-y-1.5">
-      <Label htmlFor={inputId}>{label}</Label>
-      <div className="flex items-center gap-4">
-        <div
+    <div className="rounded-lg border border-border bg-background p-4 shadow-xs">
+      <Label htmlFor={inputId} className="text-neutral-900">{label}</Label>
+      <div className="mt-3">
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          aria-label={chooseLabel}
           className={cn(
-            "flex shrink-0 items-center justify-center overflow-hidden rounded-lg border border-dashed border-border bg-muted",
-            aspect === "square" ? "size-24" : "h-24 w-40",
+            "group flex h-36 w-full items-center justify-center overflow-hidden rounded-md border border-dashed border-neutral-400 bg-neutral-100 transition-[border-color,background-color,transform] hover:-translate-y-0.5 hover:border-primary hover:bg-terracotta-100/40 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
             error && "border-destructive",
           )}
         >
           {value ? (
-            <Preview image={value} alt={label} />
-          ) : (
-            <ImagePlus
-              className="size-6 text-muted-foreground"
-              aria-hidden="true"
+            <Preview
+              image={value}
+              alt={label}
+              className={aspect === "square" ? "object-contain p-3" : undefined}
             />
+          ) : (
+            <span className="flex flex-col items-center gap-2 text-sm text-muted-foreground transition-colors group-hover:text-primary">
+              <span className="grid size-11 place-items-center rounded-full bg-card shadow-xs">
+                <ImagePlus className="size-5" aria-hidden="true" />
+              </span>
+              {chooseLabel}
+            </span>
           )}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => inputRef.current?.click()}
-          >
-            {chooseLabel}
-          </Button>
-          {value ? (
+        </button>
+        {value ? (
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => inputRef.current?.click()}
+            >
+              {chooseLabel}
+            </Button>
             <Button type="button" variant="ghost" size="sm" onClick={onRemove}>
               <Trash2 className="size-4" aria-hidden="true" />
               {removeLabel}
             </Button>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
       <input
         ref={inputRef}
@@ -148,9 +156,9 @@ export function SingleImagePicker({
           event.target.value = ""; // allows re-picking the same file
         }}
       />
-      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
+      {hint ? <p className="mt-3 text-xs text-muted-foreground">{hint}</p> : null}
       {error ? (
-        <p role="alert" className="text-sm text-destructive">
+        <p role="alert" className="mt-2 text-sm text-destructive">
           {error}
         </p>
       ) : null}
@@ -184,14 +192,14 @@ export function GalleryPicker({
   const full = values.length >= max;
 
   return (
-    <div className="space-y-1.5">
-      <Label htmlFor={inputId}>{label}</Label>
+    <div className="rounded-lg border border-border bg-background p-4 shadow-xs">
+      <Label htmlFor={inputId} className="text-neutral-900">{label}</Label>
       {values.length > 0 ? (
-        <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+        <ul className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
           {values.map((image, index) => (
             <li
               key={image.previewUrl}
-              className="relative aspect-square overflow-hidden rounded-lg border border-border bg-muted"
+              className="relative aspect-square overflow-hidden rounded-md border border-border bg-muted shadow-xs transition-transform hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             >
               <Preview image={image} alt={`${label} ${index + 1}`} />
               <button
@@ -210,6 +218,9 @@ export function GalleryPicker({
         type="button"
         variant="outline"
         size="sm"
+        className={cn(
+          values.length > 0 ? "mt-3" : "mt-3 h-28 w-full rounded-md border-dashed",
+        )}
         disabled={full}
         onClick={() => inputRef.current?.click()}
       >
@@ -229,9 +240,9 @@ export function GalleryPicker({
           event.target.value = "";
         }}
       />
-      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
+      {hint ? <p className="mt-3 text-xs text-muted-foreground">{hint}</p> : null}
       {error ? (
-        <p role="alert" className="text-sm text-destructive">
+        <p role="alert" className="mt-2 text-sm text-destructive">
           {error}
         </p>
       ) : null}

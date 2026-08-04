@@ -39,11 +39,11 @@ export function FieldShell({
   const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
 
   return (
-    <div className="space-y-1.5">
-      <Label htmlFor={id}>
+    <div className="group space-y-2">
+      <Label htmlFor={id} className="text-neutral-900">
         {label}
         {optionalLabel ? (
-          <span className="text-xs font-normal text-muted-foreground">
+          <span className="rounded-full bg-neutral-200 px-2 py-0.5 text-xs font-normal text-muted-foreground">
             ({optionalLabel})
           </span>
         ) : null}
@@ -54,12 +54,12 @@ export function FieldShell({
         "aria-describedby": describedBy,
       })}
       {hint ? (
-        <p id={hintId} className="text-xs text-muted-foreground">
+        <p id={hintId} className="text-xs leading-relaxed text-muted-foreground">
           {hint}
         </p>
       ) : null}
       {error ? (
-        <p id={errorId} role="alert" className="text-sm text-destructive">
+        <p id={errorId} role="alert" className="text-sm leading-relaxed text-destructive">
           {error}
         </p>
       ) : null}
@@ -113,7 +113,11 @@ export function TextField({
           autoComplete={autoComplete}
           min={min}
           max={max}
-          className={cn(shell.error && "border-destructive", className)}
+          className={cn(
+            "bg-background shadow-xs hover:bg-background focus-visible:bg-background",
+            shell.error && "border-destructive bg-destructive/5",
+            className,
+          )}
         />
       )}
     </FieldShell>
@@ -159,7 +163,10 @@ export function TextAreaField({
             placeholder={placeholder}
             rows={rows}
             maxLength={maxLength}
-            className={cn(shell.error && "border-destructive")}
+            className={cn(
+              "bg-background shadow-xs hover:bg-background focus-visible:bg-background",
+              shell.error && "border-destructive bg-destructive/5",
+            )}
           />
           {nearLimit ? (
             <p className="text-right text-xs tabular-nums text-muted-foreground">
@@ -197,8 +204,8 @@ export function SelectField({
           value={value}
           onChange={(event) => onChange(event.target.value)}
           className={cn(
-            "flex h-12 w-full rounded-full border bg-card px-5 text-base transition-colors hover:border-neutral-400 focus-visible:border-primary",
-            shell.error && "border-destructive",
+            "flex h-12 w-full rounded-full border bg-background px-5 text-base shadow-xs transition-colors hover:border-neutral-400 focus-visible:border-primary",
+            shell.error && "border-destructive bg-destructive/5",
           )}
         >
           {options.map((option) => (

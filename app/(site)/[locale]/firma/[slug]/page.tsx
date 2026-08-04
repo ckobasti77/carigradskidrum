@@ -20,6 +20,7 @@ import { badgeVariants } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { CompanyCard } from "@/components/site/company-card";
+import { CompanyCardGrid } from "@/components/site/company-card-grid";
 import { DiscountBadge } from "@/components/site/discount-badge";
 import { ClaimBanner } from "@/components/site/claim-banner";
 import { InquiryForm } from "@/components/site/inquiry-form";
@@ -248,7 +249,7 @@ export default async function CompanyPage({
               <h2 id="section-similar" className="text-xl">
                 {dict.company.sections.similar}
               </h2>
-              <div className="mt-3 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <CompanyCardGrid className="mt-3">
                 {profile.similar.slice(0, 3).map((card) => (
                   <CompanyCard
                     key={card.id}
@@ -257,7 +258,7 @@ export default async function CompanyPage({
                     strings={cardStrings}
                   />
                 ))}
-              </div>
+              </CompanyCardGrid>
             </section>
           )}
         </div>
